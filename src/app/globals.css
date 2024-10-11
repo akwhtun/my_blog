@@ -14,6 +14,12 @@
   }
 }
 
+.font-cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+
+
 body {
   color: var(--foreground);
   background: var(--background);
