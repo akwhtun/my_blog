@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-
+import dbConnect from "./lib/dbConnect";
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Navbar from "./components/Navbar";
@@ -17,6 +17,13 @@ export default function Home() {
 
   );
 }
+
+// const createArticle = async () => {
+//   await dbConnect();  // Connect to MongoDB
+
+// };
+
+// createArticle();
 
 // export async function getServerSideProps() {
 //   await dbConnect();

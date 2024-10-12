@@ -1,6 +1,3 @@
 VLHupPOJU8AOPaSo
 
-mongodb+srv://akwhtun:VLHupPOJU8AOPaSo@cluster0.nkwxg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-
-
-mongodb+srv://akwhtun:<db_password>@cluster0.nkwxg.mongodb.net/
+mongodb+srv://akwhtun:VLHupPOJU8AOPaSo@cluster0.nkwxg.mongodb.net/blog
