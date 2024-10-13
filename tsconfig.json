@@ -33,8 +33,12 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/blogs/page.js",
-    "src/app/lib/dbConnect.js",
-    "src/app/api/blogs/route.js"
+    "src/app/lib/dbConnect.ts",
+    "src/app/api/blogs/route.js",
+    "src/app/categories/page.js",
+    "src/app/api/categories/route.js",
+    "src/app/categories/view/manager.js",
+    "src/app/categories/edit/[id]/page.js"
   ],
   "exclude": [
     "node_modules"
