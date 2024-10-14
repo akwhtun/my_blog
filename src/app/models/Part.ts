@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IPart extends Document {
-    article_id: string;
+    article_id: mongoose.Schema.Types.ObjectId;
     part: string;
     content: string;
     imageUrl: string;
@@ -10,7 +10,7 @@ export interface IPart extends Document {
 }
 
 const PartSchema = new mongoose.Schema({
-    article_id: { type: String, required: true },
+    article_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     part: { type: String, required: true, unique: true },
     content: { type: String, required: true },
     imageUrl: { type: String, required: true },

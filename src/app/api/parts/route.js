@@ -1,14 +1,59 @@
 import dbConnect from "@/app/lib/dbConnect";
 import Part from "@/app/models/Part";
 import { NextResponse } from "next/server";
-
+import fs from 'fs';
+import path from 'path';
 export async function POST(request) {
 
     try {
-        const { article_id, part, content, imageUrl, status } = await request.json();
-        await dbConnect();
-        part = await Part.create({ article_id, part, content, imageUrl, status });
 
+        const form = await request.formData();
+
+        const article_id = form.get('article_id');
+        const part = form.get('part');
+        const content = form.get('content');
+        const status = form.get('status');
+        const file = form.get('image');
+        const imageUrl = file.name;
+
+        console.log("hre is ", article_id, part, content, status, imageUrl);
+
+
+        await dbConnect();
+        const newPart = await Part.create({ article_id, part, content, status, imageUrl });
+
+        if (newPart) {
+            let fileToSave;
+
+            form.forEach((value, key) => {
+                if (value instanceof File) {
+                    console.log("value of file", value);
+
+                    fileToSave = value; // Get the file from formData
+                } else {
+                    console.log(`${key}: ${value}`); // Log other form fields
+                }
+            });
+            if (fileToSave) {
+                // Create a directory to save the file inside 'public/uploads/article' (if it doesn't exist)
+                const publicDirectoryPath = path.join(process.cwd(), 'public/uploads/part/');
+                if (!fs.existsSync(publicDirectoryPath)) {
+                    fs.mkdirSync(publicDirectoryPath, { recursive: true });
+                }
+
+                // Get the file's buffer
+                const fileBuffer = Buffer.from(await fileToSave.arrayBuffer());
+
+                // Define the full path to save the file inside 'public/uploads/parts'
+                const filePath = path.join(publicDirectoryPath, fileToSave.name);
+
+                // Write the file to the 'public/uploads/article' directory
+                fs.writeFileSync(filePath, fileBuffer);
+
+                console.log(`File saved to: ${filePath}`);
+            }
+
+        }
         return NextResponse.json({ message: "Blog part created successfully" }, { status: 201 });
     } catch (error) {
         console.error("Error occurred while creating blog part:", error);
@@ -16,14 +61,13 @@ export async function POST(request) {
     }
 }
 
-export async function GET({ params }) {
+export async function GET() {
     try {
-        const { id } = params;
         await dbConnect();
-        if (id) {
-            const blog_part = await Part.find('article related blog');
-        }
+
         const blog_part = await Part.find({});
+
+
 
         return NextResponse.json({ blog_part }, { status: 200 });
     } catch (error) {

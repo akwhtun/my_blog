@@ -86,13 +86,12 @@ const BlogManager = () => {
                             Published on: {new Date(blog.created_date).toLocaleDateString()}
                         </p>
 
-                        {/* Add buttons for Read, Delete, and Update */}
                         <div className="flex space-x-4 mt-4">
                             <a
-                                href={`/blogs/view/${blog._id}`}
+                                href={`/blogs/write/parts/?blogId=${blog._id}`}
                                 className="px-4 py-2 bg-blue-500 text-white rounded-lg"
                             >
-                                Read
+                                Write Part
                             </a>
                             <button
                                 onClick={() => handleEditBlog(blog._id)}

@@ -38,7 +38,9 @@
     "src/app/categories/page.js",
     "src/app/api/categories/route.js",
     "src/app/categories/view/manager.js",
-    "src/app/categories/edit/[id]/page.js"
+    "src/app/categories/edit/[id]/page.js",
+    "src/app/blogs/part/[id]/Blog.js",
+    "src/app/blogs/[id]/parts/page.js"
   ],
   "exclude": [
     "node_modules"
