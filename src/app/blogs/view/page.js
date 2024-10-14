@@ -1,24 +1,22 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { createCategory, deleteCategory, fetchCategories } from './manager';
+import { fetchBlogs, deleteBlog } from './manager';
 import { useRouter, useSearchParams } from 'next/navigation';
-
-const CategoryManager = () => {
+const BlogManager = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const message = searchParams.get('message');
-    const [categories, setCategories] = useState([]);
-    const [newCategory, setNewCategory] = useState('');
-    const [createLoading, setCreateLoading] = useState(false);
-    const [deletingCategoryId, setDeletingCategoryId] = useState(null);
+    const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [deletingBlogId, setDeletingBlogId] = useState(false);
     const [msg, setMsg] = useState(message);
+
     useEffect(() => {
-        const loadCategories = async () => {
+        const loadBlogs = async () => {
             try {
                 setLoading(true);
-                const fetchedCategories = await fetchCategories();
-                setCategories(fetchedCategories);
+                const fetchedBlogs = await fetchBlogs();
+                setBlogs(fetchedBlogs);
             } catch (error) {
                 setMsg(error.message);
             } finally {
@@ -26,107 +24,98 @@ const CategoryManager = () => {
             }
         };
 
-        loadCategories();
+        loadBlogs();
     }, []);
 
-    const handleCreateCategory = async () => {
+    const handleDeleteBlog = async (id) => {
         try {
-            setCreateLoading(true);
-            const msg = await createCategory(newCategory);
-            const updatedCategories = await fetchCategories();
-            setCategories(updatedCategories);
-            setNewCategory('');
+            setDeletingBlogId(id);
+            const msg = await deleteBlog(id);
+            const updateBlod = await fetchBlogs();
+            setBlogs(updateBlod);
             setMsg(msg);
         } catch (error) {
             setMsg(error.message);
-        } finally {
-            setCreateLoading(false);
         }
     };
 
-    const handleDeleteCategory = async (categoryId) => {
-        try {
-            // setDeleteLoading(true);
-            setDeletingCategoryId(categoryId);
-            const msg = await deleteCategory(categoryId);
-            const updatedCategories = await fetchCategories();
-            setCategories(updatedCategories);
-            setMsg(msg);
-        } catch (error) {
-            setMsg(error.message);
-        } finally {
-            // setDeleteLoading(false);
-        }
+    const handleEditBlog = async (id) => {
+        router.push(`/blogs/edit/${id}`);
     };
 
-    const handleEditCategory = async (categoryId) => {
-        router.push(`/categories/edit/${categoryId}`);
-    }
     if (loading) {
-        return (
-            <div>
-                Category loading....
-            </div>
-        )
+        return <div>Blog loading....</div>;
     }
 
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
-                Category Manager
-            </h2>
+            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">All Blogs</h2>
 
-            <div className="flex mb-4">
-                <input
-                    type="text"
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                    placeholder="New Category"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-                />
-                <button
-                    onClick={handleCreateCategory}
-                    disabled={createLoading}
-                    className={`ml-3 p-2 text-white rounded-lg ${createLoading
-                        ? 'bg-pink-300 cursor-not-allowed'
-                        : 'bg-pink-600 hover:bg-pink-500'
-                        }`}
-                >
-                    {createLoading ? 'Creating...' : 'Create Category'}
-                </button>
-            </div>
+
+
+            {/* Show total blog count */}
+            <p className="text-gray-700 mb-5 text-center">Total Blogs: {blogs.length}</p>
 
             {msg && <p className="text-red-500 mb-4">{msg}</p>}
 
+            <div className="space-y-4">
+                {blogs.map((blog) => (
+                    <div key={blog._id} className="p-4 border rounded-lg shadow-md bg-gray-50">
+                        <h3 className="text-xl font-semibold text-gray-800">{blog.title}</h3>
 
-            <ul className="space-y-3">
-                {categories.map((category) => (
-                    <li
-                        key={category._id}
-                        className="flex justify-around items-center bg-pink-100 p-3 rounded-lg shadow-md"
-                    >
-                        <span className="text-lg">{category.name}</span>
-                        <button
-                            onClick={() => handleDeleteCategory(category._id)}
-                            disabled={deletingCategoryId === category._id}
-                            className={`text-white p-2 rounded-lg ${deletingCategoryId === category._id
-                                ? 'bg-pink-300 cursor-not-allowed'
-                                : 'bg-red-600 hover:bg-red-500'
-                                }`}
-                        >
-                            {deletingCategoryId === category._id ? 'Deleting...' : 'Delete'}
-                        </button>
-                        <button
-                            onClick={() => handleEditCategory(category._id)}
+                        {/* Truncate the blog content */}
+                        <p className="text-gray-600">
+                            {blog.content.length > 100
+                                ? blog.content.slice(0, 100) + "..."
+                                : blog.content}
+                            <a href={`/blogs/view/${blog._id}`} className="text-pink-500 ml-2">
+                                Read more
+                            </a>
+                        </p>
 
-                        >
-                            Edit
-                        </button>
-                    </li>
+                        <p className="text-sm text-gray-500">By {blog.author}</p>
+
+                        {/* Resize image */}
+                        <img
+                            src={`/uploads/article/${blog.imageUrl}`}
+                            alt={blog.title}
+                            className="w-full h-48 object-cover my-2 rounded-lg"
+                        />
+
+                        <p className="text-sm text-gray-400">
+                            Published on: {new Date(blog.created_date).toLocaleDateString()}
+                        </p>
+
+                        {/* Add buttons for Read, Delete, and Update */}
+                        <div className="flex space-x-4 mt-4">
+                            <a
+                                href={`/blogs/view/${blog._id}`}
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                            >
+                                Read
+                            </a>
+                            <button
+                                onClick={() => handleEditBlog(blog._id)}
+                                className="px-4 py-2 bg-yellow-500 text-white rounded-lg"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                onClick={() => handleDeleteBlog(blog._id)}
+                                disabled={deletingBlogId === blog._id}
+                                className={`text-white p-2 rounded-lg ${deletingBlogId === blog._id
+                                    ? 'bg-pink-300 cursor-not-allowed'
+                                    : 'bg-red-600 hover:bg-red-500'
+                                    } rounded-lg`}
+                            >
+                                {deletingBlogId === blog._id ? 'Deleting...' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
 
-export default CategoryManager;
+export default BlogManager;

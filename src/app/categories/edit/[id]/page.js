@@ -47,6 +47,12 @@ const CategoryManager = ({ params }) => {
         }
     };
 
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
@@ -58,7 +64,7 @@ const CategoryManager = ({ params }) => {
             <div className="flex mb-4">
                 <input
                     type="text"
-                    value={updatedCategory || oldCategory.name || ''}  // Use old category name if not updated yet
+                    value={updatedCategory || oldCategory.name || ''}
                     onChange={(e) => setUpdatedCategory(e.target.value)}
                     placeholder="New Update Category"
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"

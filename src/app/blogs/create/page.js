@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createBlog } from './manager';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { fetchCategories } from "../../categories/view/manager"
 const BlogManager = () => {
-    const router = useRouter();
     const searchParams = useSearchParams();
     const message = searchParams.get('message');
 
@@ -44,11 +43,11 @@ const BlogManager = () => {
             formData.append('author', author);
             formData.append('categoryId', categoryId);
             formData.append('image', imageUrl);
-            console.log("form dAte", formData);
 
-            const msg = await createBlog(formData);
-            // setMsg(msg);
-            console.log("message is" + msg);
+
+            const responseMsg = await createBlog(formData);
+            setMsg(responseMsg)
+
 
         } catch (error) {
             setMsg(error.message);
@@ -83,13 +82,14 @@ const BlogManager = () => {
                     placeholder="New Title"
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
                 />
-                <input
-                    type="text"
+                <textarea
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="New Content"
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    rows="5"
                 />
+
                 <input
                     type="text"
                     value={author}
@@ -114,6 +114,7 @@ const BlogManager = () => {
 
                 <input
                     type="file"
+                    name='image'
                     accept="image/*"
                     onChange={handleImageChange}
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
