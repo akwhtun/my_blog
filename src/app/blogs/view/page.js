@@ -91,7 +91,13 @@ const BlogManager = () => {
                                 href={`/blogs/write/parts/?blogId=${blog._id}`}
                                 className="px-4 py-2 bg-blue-500 text-white rounded-lg"
                             >
-                                Write Part
+                                Write Blog Part
+                            </a>
+                            <a
+                                href={`/blogs/view/${blog._id}`}
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                            >
+                                All Parts
                             </a>
                             <button
                                 onClick={() => handleEditBlog(blog._id)}

@@ -61,37 +61,34 @@ export async function POST(request) {
     }
 }
 
-export async function GET() {
-    try {
-        await dbConnect();
+// export async function GET() {
+//     try {
+//         await dbConnect();
 
-        const blog_part = await Part.find({});
+//         const blog_part = await Part.find({});
 
 
 
-        return NextResponse.json({ blog_part }, { status: 200 });
-    } catch (error) {
-        console.error("Error occurred while fetching blog parts:", error);
-        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
-    }
-}
+//         return NextResponse.json({ blog_part }, { status: 200 });
+//     } catch (error) {
+//         console.error("Error occurred while fetching blog parts:", error);
+//         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+//     }
+// }
 
 export async function DELETE(request) {
     try {
-        const { partId } = await request.json();
+
+        const blogPartId = request.nextUrl.searchParams.get('id');
         await dbConnect();
-
-        const result = await Part.deleteOne({ partId });
-
+        const result = await Part.findByIdAndDelete(blogPartId);
         if (result.deletedCount === 0) {
-            return NextResponse.json({ message: "Blog part not found" }, { status: 404 });
+            return NextResponse.json({ message: "Blog Part not found" }, { status: 404 });
         }
-
-        return NextResponse.json({ message: "Blog part deleted successfully" }, { status: 200 });
+        return NextResponse.json({ message: "Blog Part deleted successfully" }, { status: 200 });
     } catch (error) {
         console.error("Error occurred while deleting blog part:", error);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }
-
 
