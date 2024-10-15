@@ -46,13 +46,13 @@ const BlogManager = ({ params }) => {
         }
     };
 
-    // const handleEditBlogPart = async (id) => {
-    //     router.push(`/blogs/edit/${id}`);
-    // };
+    const handleEditBlogPart = async (id) => {
+        router.push(`/blogs/part/edit?id=${id}`);
+    };
 
-    // const handleViewBlogPart = async (id) => {
-    //     router.push(`/blogs/edit/${id}`);
-    // };
+    const handleViewBlogPart = async (id) => {
+        router.push(`/blogs/part/view?id=${id}`);
+    };
 
     if (loading) {
         return <div>Blog loading....</div>;
@@ -97,7 +97,7 @@ const BlogManager = ({ params }) => {
                         <img
                             src={`/uploads/part/${blog.imageUrl}`}
                             alt={blog.title}
-                            className="w-full h-48 object-cover my-2 rounded-lg"
+                            className="w-full h-56 object-cover my-2 rounded-lg"
                         />
 
                         <p className="text-sm text-gray-400">
@@ -106,14 +106,14 @@ const BlogManager = ({ params }) => {
 
                         <div className="flex space-x-4 mt-4">
 
-                            <a
-                                href={`/blogs/view/${blog._id}`}
+                            <button
+                                onClick={() => handleViewBlogPart(blog._id)}
                                 className="px-4 py-2 bg-blue-500 text-white rounded-lg"
                             >
                                 View
-                            </a>
+                            </button>
                             <button
-                                onClick={() => handleEditBlog(blog._id)}
+                                onClick={() => handleEditBlogPart(blog._id)}
                                 className="px-4 py-2 bg-yellow-500 text-white rounded-lg"
                             >
                                 Edit
