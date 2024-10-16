@@ -53,7 +53,7 @@ const Navbar = () => {
                     </Link>
 
                     {/* Music Toggle Switch */}
-                    <div className="flex items-center mt-4">
+                    {/* <div className="flex items-center mt-4">
                         <span className="text-white text-lg mr-2">Background Music:</span>
                         <label className="relative inline-flex items-center cursor-pointer">
                             <input
@@ -69,7 +69,7 @@ const Navbar = () => {
                             ></div>
                         </label>
                     </div>
-                    <BackgroundMusic isPlaying={isMusicOn} />
+                    <BackgroundMusic isPlaying={isMusicOn} /> */}
                 </div>
             )}
         </nav>

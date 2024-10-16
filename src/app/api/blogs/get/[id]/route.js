@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
     try {
         const { id } = params
         await dbConnect()
-        const article = await Article.find({ _id: id });
+        const article = await Article.findOne({ _id: id });
         return NextResponse.json({ article }, { status: 200 });
     } catch (error) {
         console.error("Error occurred while fetching one Article:", error);

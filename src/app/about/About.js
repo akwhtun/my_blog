@@ -6,7 +6,7 @@ const AboutPage = () => {
             <div className="max-w-3xl mx-auto px-6 py-10 mt-16 bg-white rounded-lg shadow-md ">
 
                 <p className="mt-4 text-lg">
-                    Welcome to my romantic blog! I'm here to share my journey of love and admiration.
+                    Welcome to my romantic blog!
                 </p>
 
                 <h2 className="mt-4 text-3xl font-semibold">My Story</h2>
@@ -23,10 +23,10 @@ const AboutPage = () => {
 
 
                 <p className="mt-4 text-lg text-center italic">
-                    I want to be with you in my journey!
+                    I want to spend every heartbeat of my life loving her.
                 </p>
                 <p className="mt-4 text-xl text-center text-violet-600 italic">
-                    Aung Kyaw Wai Htun
+                    - Aung Kyaw Wai Htun -
                 </p>
             </div>
         </div>

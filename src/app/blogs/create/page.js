@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createBlog } from './manager';
-import { useSearchParams } from 'next/navigation';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { fetchCategories } from "../../categories/view/manager"
 const BlogManager = () => {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const message = searchParams.get('message');
 
@@ -46,7 +48,7 @@ const BlogManager = () => {
 
 
             const responseMsg = await createBlog(formData);
-            setMsg(responseMsg)
+            router.push(`/blogs/view?message=Blog created`);
 
 
         } catch (error) {
@@ -57,22 +59,30 @@ const BlogManager = () => {
     };
 
     const handleImageChange = (e) => {
-        setImageUrl(e.target.files[0]);  // Get the file from the input
+        setImageUrl(e.target.files[0]);
     };
 
     if (loading) {
         return (
-            <div>
-                loading....
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
             </div>
         )
     }
 
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
-                Blog Manager
-            </h2>
+
+            <div className="flex items-center mb-5">
+
+                <ArrowLeftIcon
+                    className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
+                    onClick={() => router.back()}
+                />
+                <h2 className="text-2xl ms-4 font-semibold text-violet-600  text-center">
+                    Blog Manager
+                </h2>
+            </div>
 
             <div className="flex flex-col mb-4">
                 <input
@@ -80,13 +90,13 @@ const BlogManager = () => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="New Title"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                 />
                 <textarea
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="New Content"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                     rows="5"
                 />
 
@@ -95,14 +105,14 @@ const BlogManager = () => {
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                     placeholder="New Author"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                 />
 
 
                 <select
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                 >
                     <option value="">Select Category</option>
                     {categories.map((category) => (
@@ -117,7 +127,7 @@ const BlogManager = () => {
                     name='image'
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                 />
             </div>
 
@@ -125,8 +135,8 @@ const BlogManager = () => {
                 onClick={handleCreateBlog}
                 disabled={createLoading}
                 className={`ml-3 p-2 text-white rounded-lg ${createLoading
-                    ? 'bg-pink-300 cursor-not-allowed'
-                    : 'bg-pink-600 hover:bg-pink-500'
+                    ? 'bg-violet-300 cursor-not-allowed'
+                    : 'bg-violet-600 hover:bg-violet-500'
                     }`}
             >
                 {createLoading ? 'Creating...' : 'Create Blog'}

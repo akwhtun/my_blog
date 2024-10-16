@@ -57,7 +57,9 @@ const BlogManager = () => {
             </Link>
             <h2 className="text-2xl font-semibold text-violet-600 mb-5 text-center">All Blogs</h2>
 
-
+            <Link href={'/blogs/create'}>
+                Create Blog
+            </Link>
 
             {/* Show total blog count */}
             <p className="text-gray-700 mb-5 text-center">Total Blogs: {blogs.length}</p>
