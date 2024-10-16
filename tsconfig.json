@@ -39,8 +39,15 @@
     "src/app/api/categories/route.js",
     "src/app/categories/view/manager.js",
     "src/app/categories/edit/[id]/page.js",
-    "src/app/blogs/part/[id]/Blog.js",
-    "src/app/blogs/[id]/parts/page.js"
+    "src/app/blogs/part/[id]/BlogPart.js",
+    "src/app/blogs/[id]/parts/page.js",
+    "src/app/components/Layout.js",
+    "src/app/components/Navbar.js",
+    "src/app/components/Articles.js",
+    "src/app/blogs/write/page.js",
+    "src/app/blogs/write/Article.js",
+    "src/app/blogs/GetArticles.js",
+    "src/app/layout.js"
   ],
   "exclude": [
     "node_modules"

@@ -30,7 +30,7 @@ const articles = [
     },
 ];
 
-const Layout = () => {
+const Articles = () => {
     return (
         <div className="relative w-full h-screen overflow-hidden">
             <Image
@@ -91,4 +91,4 @@ const Layout = () => {
     );
 };
 
-export default Layout;
+export default Articles;

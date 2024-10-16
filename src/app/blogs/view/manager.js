@@ -21,6 +21,28 @@ export const fetchBlogs = async () => {
     }
 };
 
+export const fetchOneBlogParts = async (id) => {
+    try {
+        const response = await fetch(`/api/blogs/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to fetch blogs');
+        }
+
+        const data = await response.json();
+        return data.articleParts;
+    } catch (error) {
+        console.error('Error fetching blogs:', error);
+        throw error;
+    }
+};
+
 
 
 export const deleteBlog = async (blogId) => {
@@ -57,7 +79,10 @@ export const fetchBlogWithParts = async (articleId) => {
             throw new Error(errorData.message || 'Failed to fetch blog and parts');
         }
 
+
         const data = await response.json();
+
+
         return data; // Assuming the entire blog with parts is returned
     } catch (error) {
         console.error('Error fetching blog with parts:', error);

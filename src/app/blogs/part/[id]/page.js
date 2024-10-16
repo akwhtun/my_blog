@@ -1,11 +1,14 @@
 import React from 'react'
 import Navbar from '@/app/components/Navbar'
-import Blog from './Blog';
-export default function page() {
+import BlogPart from './BlogPart';
+export default function page({ params }) {
+    const { id } = params;
     return (
+
         <>
             <Navbar />
-            <Blog />
+            <BlogPart id={id} />
         </>
+
     )
 }
