@@ -8,8 +8,8 @@ const BlogManager = ({ params }) => {
     const router = useRouter();
 
     const [categories, setCategories] = useState([]);
-    const [oldBlog, setOldBlog] = useState({});
-    const [updatedBlog, setUpdatedBlog] = useState({});
+    const [oldBlog, setOldBlog] = useState([]);
+    const [updatedBlog, setUpdatedBlog] = useState([]);
     const [loading, setLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
     const [msg, setMsg] = useState('');
@@ -19,7 +19,8 @@ const BlogManager = ({ params }) => {
             try {
                 setLoading(true);
                 const fetchedBlog = await fetchOneBlog(id);
-                setOldBlog(fetchedBlog);
+                console.log("Fetched Blog:", fetchedBlog);  // Debugging
+                fetchedBlog && setOldBlog(fetchedBlog);
                 setUpdatedBlog(fetchedBlog);
             } catch (error) {
                 setMsg(error.message);
@@ -27,6 +28,7 @@ const BlogManager = ({ params }) => {
                 setLoading(false);
             }
         };
+
 
         const loadCategories = async () => {
             try {
@@ -40,123 +42,128 @@ const BlogManager = ({ params }) => {
             }
         };
 
-        loadCategories();
         loadBlog();
+        loadCategories();
 
     }, [id]);
 
-    const handleUpdateBlog = async () => {
-        console.log(updatedBlog);
 
-        try {
-            setUpdateLoading(true);
-            const formData = new FormData();
-            formData.append('title', updatedBlog.title);
-            formData.append('content', updatedBlog.content);
-            formData.append('author', updatedBlog.author);
-            formData.append('categoryId', updatedBlog.category_id);
-            formData.append('image', updatedBlog.imageUrl);
-            const responseMsg = await UpdateBlog(id, formData);
-            router.push(`/blogs/view?message=${responseMsg}`);
 
-        } catch (error) {
-            setMsg(error.message);
-        } finally {
-            setUpdateLoading(false);
-        }
-    };
+    // const handleUpdateBlog = async () => {
+    //     console.log(updatedBlog);
 
-    if (loading) {
-        return (
-            <div>Loading...</div>
-        );
-    }
+    //     try {
+    //         setUpdateLoading(true);
+    //         const formData = new FormData();
+    //         formData.append('title', updatedBlog.title);
+    //         formData.append('content', updatedBlog.content);
+    //         formData.append('author', updatedBlog.author);
+    //         formData.append('categoryId', updatedBlog.category_id);
+    //         formData.append('image', updatedBlog.imageUrl);
+    //         const responseMsg = await UpdateBlog(id, formData);
+    //         router.push(`/blogs/view?message=${responseMsg}`);
+
+    //     } catch (error) {
+    //         setMsg(error.message);
+    //     } finally {
+    //         setUpdateLoading(false);
+    //     }
+    // };
+
+    // if (loading) {
+    //     return (
+    //         <div>Loading...</div>
+    //     );
+    // }
 
     return (
-        <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
-                Update Blog
-            </h2>
 
-            {msg && <p className="mb-4 text-center text-red-500">{msg}</p>}
+        <p className="bg-red-500 w-20 h-20">
+            {updatedBlog ? `hhi${updatedBlog.title}` : 'lee'}
+        </p>
+        // <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
+        //     <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
+        //         Update Blog
+        //     </h2>
 
-            <div className="mb-4">
-                <input
-                    type="text"
-                    value={updatedBlog.title !== undefined ? updatedBlog.title : oldBlog.title || ''}
-                    onChange={(e) => setUpdatedBlog({ ...updatedBlog, title: e.target.value })}
+        //     {msg && <p className="mb-4 text-center text-red-500">{msg}</p>}
 
-                    placeholder="Blog Title"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-                />
-            </div>
+        //     <div className="mb-4">
+        //         <input
+        //             type="text"
+        //             value={updatedBlog.title !== undefined ? updatedBlog.title : oldBlog.title || ''}
+        //             onChange={(e) => setUpdatedBlog({ ...updatedBlog, title: e.target.value })}
 
-            <div className="mb-4">
-                <textarea
-                    value={updatedBlog.content !== undefined ? updatedBlog.content : oldBlog.content || ''}
-                    onChange={(e) => setUpdatedBlog({ ...updatedBlog, content: e.target.value })}
-                    placeholder="Blog Content"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 h-40"
-                />
-            </div>
+        //             placeholder="Blog Title"
+        //             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+        //         />
+        //     </div>
 
-            {/* Blog Author Input */}
-            <div className="mb-4">
-                <input
-                    type="text"
-                    value={updatedBlog.author !== undefined ? updatedBlog.author : oldBlog.author || ''}
-                    onChange={(e) => setUpdatedBlog({ ...updatedBlog, author: e.target.value })}
-                    placeholder="Author"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-                />
-            </div>
+        //     <div className="mb-4">
+        //         <textarea
+        //             value={updatedBlog.content !== undefined ? updatedBlog.content : oldBlog.content || ''}
+        //             onChange={(e) => setUpdatedBlog({ ...updatedBlog, content: e.target.value })}
+        //             placeholder="Blog Content"
+        //             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 h-40"
+        //         />
+        //     </div>
 
-            <select
-                value={updatedBlog.category_id !== undefined ? updatedBlog.category_id : oldBlog.category_id || ''}
-                onChange={(e) => setUpdatedBlog({ ...updatedBlog, category_id: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
-            >
-                <option value="">Select Category</option>
-                {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
-                        {category.name}
-                    </option>
-                ))}
-            </select>
+        //     <div className="mb-4">
+        //         <input
+        //             type="text"
+        //             value={updatedBlog.author !== undefined ? updatedBlog.author : oldBlog.author || ''}
+        //             onChange={(e) => setUpdatedBlog({ ...updatedBlog, author: e.target.value })}
+        //             placeholder="Author"
+        //             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+        //         />
+        //     </div>
+
+        //     <select
+        //         value={updatedBlog.category_id !== undefined ? updatedBlog.category_id : oldBlog.category_id || ''}
+        //         onChange={(e) => setUpdatedBlog({ ...updatedBlog, category_id: e.target.value })}
+        //         className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+        //     >
+        //         <option value="">Select Category</option>
+        //         {categories.map((category) => (
+        //             <option key={category._id} value={category._id}>
+        //                 {category.name}
+        //             </option>
+        //         ))}
+        //     </select>
 
 
 
-            {/* Blog Image Upload */}
-            <div className="mb-4">
-                <input
-                    type="file"
-                    // value={oldBlog.imageUrl}
-                    onChange={(e) => setUpdatedBlog({ ...updatedBlog, imageUrl: e.target.files[0] })}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-                />
-                {oldBlog.imageUrl && (
-                    <img
-                        src={`/uploads/article/${oldBlog.imageUrl}`}  // Show current image if available
-                        alt={oldBlog.title}
-                        className="w-full h-48 object-cover my-2 rounded-lg"
-                    />
-                )}
-            </div>
+        //     {/* Blog Image Upload */}
+        //     <div className="mb-4">
+        //         <input
+        //             type="file"
+        //             // value={oldBlog.imageUrl}
+        //             onChange={(e) => setUpdatedBlog({ ...updatedBlog, imageUrl: e.target.files[0] })}
+        //             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+        //         />
+        //         {oldBlog.imageUrl && (
+        //             <img
+        //                 src={`/uploads/article/${oldBlog.imageUrl}`}  // Show current image if available
+        //                 alt={oldBlog.title}
+        //                 className="w-full h-48 object-cover my-2 rounded-lg"
+        //             />
+        //         )}
+        //     </div>
 
-            {/* Update Button */}
-            <div className="flex">
-                <button
-                    onClick={handleUpdateBlog}
-                    disabled={updateLoading}
-                    className={`ml-3 p-2 text-white rounded-lg ${updateLoading
-                        ? 'bg-pink-300 cursor-not-allowed'
-                        : 'bg-pink-600 hover:bg-pink-500'
-                        }`}
-                >
-                    {updateLoading ? 'Updating...' : 'Update Blog'}
-                </button>
-            </div>
-        </div>
+        //     {/* Update Button */}
+        //     <div className="flex">
+        //         <button
+        //             onClick={handleUpdateBlog}
+        //             disabled={updateLoading}
+        //             className={`ml-3 p-2 text-white rounded-lg ${updateLoading
+        //                 ? 'bg-pink-300 cursor-not-allowed'
+        //                 : 'bg-pink-600 hover:bg-pink-500'
+        //                 }`}
+        //         >
+        //             {updateLoading ? 'Updating...' : 'Update Blog'}
+        //         </button>
+        //     </div>
+        // </div>
 
     );
 };

@@ -55,7 +55,9 @@ const BlogPartManager = () => {
 
     if (loading) {
         return (
-            <div>Loading...</div>
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+            </div>
         );
     }
 
@@ -63,10 +65,10 @@ const BlogPartManager = () => {
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
             <div className="flex items-center mb-5">
                 <ArrowLeftIcon
-                    className="w-6 h-6 text-pink-600 cursor-pointer hover:text-pink-400"
+                    className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
                     onClick={() => router.back()}
                 />
-                <h2 className="text-2xl font-semibold text-pink-600 ml-2">Blog Part</h2>
+                <h2 className="text-2xl font-semibold text-violet-600 ml-2">Blog Part</h2>
             </div>
 
 
@@ -79,7 +81,7 @@ const BlogPartManager = () => {
                     onChange={(e) => setUpdatedBlogPart({ ...updatedBlogPart, part: e.target.value })}
 
                     placeholder="Blog Part"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500"
                 />
             </div>
 
@@ -88,14 +90,14 @@ const BlogPartManager = () => {
                     value={updatedBlogPart.content !== undefined ? updatedBlogPart.content : oldBlogPart.content || ''}
                     onChange={(e) => setUpdatedBlogPart({ ...updatedBlogPart, content: e.target.value })}
                     placeholder="Blog Content"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 h-40"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 h-40"
                 />
             </div>
 
             <select
                 value={updatedBlogPart.status !== undefined ? updatedBlogPart.status : oldBlogPart.status || ''}
                 onChange={(e) => setUpdatedBlogPart({ ...updatedBlogPart, status: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-2"
+                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
             >
                 <option value="">Select status</option>
                 <option value="0">To be continued ...</option>
@@ -108,11 +110,11 @@ const BlogPartManager = () => {
                     type="file"
                     // value={oldBlog.imageUrl}
                     onChange={(e) => setUpdatedBlogPart({ ...updatedBlogPart, imageUrl: e.target.files[0] })}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500"
                 />
                 {oldBlogPart.imageUrl && (
                     <img
-                        src={`/uploads/part/${oldBlogPart.imageUrl}`}  // Show current image if available
+                        src={`/uploads/part/${oldBlogPart.imageUrl}`}
                         alt={oldBlogPart.title}
                         className="w-full h-48 object-cover my-2 rounded-lg"
                     />
@@ -125,8 +127,8 @@ const BlogPartManager = () => {
                     onClick={handleUpdateBlogPart}
                     disabled={updateLoading}
                     className={`ml-3 p-2 text-white rounded-lg ${updateLoading
-                        ? 'bg-pink-300 cursor-not-allowed'
-                        : 'bg-pink-600 hover:bg-pink-500'
+                        ? 'bg-violet-300 cursor-not-allowed'
+                        : 'bg-violet-600 hover:bg-violet-500'
                         }`}
                 >
                     {updateLoading ? 'Updating...' : 'Update Blog Part'}

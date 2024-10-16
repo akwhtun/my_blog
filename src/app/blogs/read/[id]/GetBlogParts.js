@@ -81,7 +81,7 @@ export default function GetBlogParts({ id }) {
             ) : blogParts.length > 0 ? (
                 <div className="absolute inset-0 flex flex-col items-center text-center px-5 backdrop-blur-md overflow-auto h-full blog">
                     {/* Blog Details */}
-                    <div className="flex justify-around items-center mt-20 pt-1 mb-2">
+                    <div className="flex justify-around items-center mt-24 pt-1 mb-2">
                         <ArrowLeftIcon
                             className="w-9 h-9 text-violet-600 cursor-pointer hover:text-violet-400"
                             onClick={() => router.back()}
@@ -97,7 +97,7 @@ export default function GetBlogParts({ id }) {
                         Published on: {new Date(blog.created_date).toLocaleDateString()}
                     </p>
                     <p className="text-white font-bold my-2 leading-tight tracking-wide">
-                        Blog Parts - {blogParts.length}
+                        Blog Parts
                     </p>
 
                     {/* Swiper Component */}

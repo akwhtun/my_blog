@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchOneBlogPart } from "../../view/manager"
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useSearchParams, useRouter } from 'next/navigation';
+
 const BlogPartManager = () => {
 
     const router = useRouter();
@@ -31,7 +32,11 @@ const BlogPartManager = () => {
 
 
     if (loading) {
-        return <div>Blog Part loading....</div>;
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+            </div>
+        );
     }
 
     return (
@@ -39,10 +44,10 @@ const BlogPartManager = () => {
 
             <div className="flex items-center mb-5">
                 <ArrowLeftIcon
-                    className="w-6 h-6 text-pink-600 cursor-pointer hover:text-pink-400"
+                    className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
                     onClick={() => router.back()}
                 />
-                <h2 className="text-2xl font-semibold text-pink-600 ml-2">Blog Part</h2>
+                <h2 className="text-2xl font-semibold text-violet-600 ml-2">Blog Part</h2>
             </div>
 
 

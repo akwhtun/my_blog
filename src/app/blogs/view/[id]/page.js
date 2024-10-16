@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { fetchBlogWithParts, deleteBlogPart } from "../manager"
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 const BlogManager = ({ params }) => {
     const { id } = params;
     const router = useRouter();
@@ -55,13 +57,25 @@ const BlogManager = ({ params }) => {
     };
 
     if (loading) {
-        return <div>Blog loading....</div>;
+        return (<div className="flex justify-center items-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+        </div>);
     }
 
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
             <div className='flex flex-col'>
-                <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center"> Blog Title : {blog.title}</h2>
+
+                <div className="flex items-center mb-5">
+                    <Link href={'/blogs/view'}>
+                        <ArrowLeftIcon
+                            className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
+
+                        />
+                    </Link>
+                    <h2 className="text-2xl font-semibold text-violet-600 mb-5 text-center"> Blog Title : {blog.title}</h2>
+                </div>
+
                 <div className='flex flex-col items-start justify-around'>
                     <p className="text-gray-600">
                         {blog.content}
@@ -70,7 +84,7 @@ const BlogManager = ({ params }) => {
 
                 </div>
             </div>
-            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">All Blogs Parts</h2>
+            <h2 className="text-2xl font-semibold text-violet-600 mb-5 text-center">All Blogs Parts</h2>
 
 
 
@@ -122,7 +136,7 @@ const BlogManager = ({ params }) => {
                                 onClick={() => handleDeleteBlogPart(blog._id)}
                                 disabled={deletingId === blog._id}
                                 className={`text-white p-2 rounded-lg ${deletingId === blog._id
-                                    ? 'bg-pink-300 cursor-not-allowed'
+                                    ? 'bg-violet-300 cursor-not-allowed'
                                     : 'bg-red-600 hover:bg-red-500'
                                     } rounded-lg`}
                             >

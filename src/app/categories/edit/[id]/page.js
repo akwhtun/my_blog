@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { fetchOneCategory, UpdateCategory } from "../../view/manager";
 import { useRouter } from "next/navigation";
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 const CategoryManager = ({ params }) => {
     const { id } = params;
     const router = useRouter();
@@ -49,15 +50,25 @@ const CategoryManager = ({ params }) => {
 
     if (loading) {
         return (
-            <div>Loading...</div>
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+            </div>
         )
     }
 
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-pink-600 mb-5 text-center">
-                Update Category
-            </h2>
+
+            <div className="flex items-center mb-5">
+
+                <ArrowLeftIcon
+                    className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
+                    onClick={() => router.back()}
+                />
+                <h2 className="text-2xl font-semibold text-violet-600 ms-5 text-center">
+                    Update Category
+                </h2>
+            </div>
 
             {msg && <p className="mb-4 text-center text-red-500">{msg}</p>}
 
@@ -67,14 +78,14 @@ const CategoryManager = ({ params }) => {
                     value={updatedCategory || oldCategory.name || ''}
                     onChange={(e) => setUpdatedCategory(e.target.value)}
                     placeholder="New Update Category"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500"
                 />
                 <button
                     onClick={handleUpdateCategory}
                     disabled={updateLoading}
                     className={`ml-3 p-2 text-white rounded-lg ${updateLoading
-                        ? 'bg-pink-300 cursor-not-allowed'
-                        : 'bg-pink-600 hover:bg-pink-500'
+                        ? 'bg-violet-300 cursor-not-allowed'
+                        : 'bg-violet-600 hover:bg-violet-500'
                         }`}
                 >
                     {updateLoading ? 'Updating...' : 'Update Category'}

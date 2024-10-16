@@ -192,7 +192,7 @@ export default function GetArticles() {
                 </div>
             ) : blogs.length > 0 ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 backdrop-blur-md">
-                    <h1 className="text-white text-4xl font-bold mt-20 mb-2 leading-tight tracking-wide">
+                    <h1 className="text-white text-3xl font-bold mt-24 mb-2 leading-tight tracking-wide">
                         All Blogs - {blogs.length}
                     </h1>
                     <Swiper

@@ -1,6 +1,6 @@
 export const fetchOneBlog = async (blogId) => {
     try {
-        const response = await fetch(`/api/blogs/${blogId}`, {
+        const response = await fetch(`/api/blogs/get/${blogId}`, {
             method: 'GET',
         });
 
