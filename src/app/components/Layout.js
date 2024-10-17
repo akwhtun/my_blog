@@ -63,68 +63,73 @@ const Layout = () => {
                         <div className="w-16 h-16 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
                     </div>
                 ) : (
-                    <>
-                        <h1 className="text-violet-100 text-4xl md:text-6xl font-extrabold mb-3 mt-2 text-center drop-shadow-lg animate-fadeInUp">
-                            Blog Highlights
-                        </h1>
+                    blogs.length > 0 ?
+                        (<>
+                            <h1 className="text-violet-100 text-4xl md:text-6xl font-extrabold mb-3 mt-2 text-center drop-shadow-lg animate-fadeInUp">
+                                Blog Highlights
+                            </h1>
 
-                        <Swiper
-                            pagination={{ clickable: true }}
-                            scrollbar={{ draggable: true }}
-                            modules={[Navigation, Pagination]}
-                            loop={shouldLoop}
-                            centeredSlides={blogs.length < 3}
-                            className="w-full px-4 md:px-20"
-                            spaceBetween={30}
-                            navigation={!isMobile} // Disable navigation on mobile
-                            breakpoints={{
-                                640: { slidesPerView: 1 },
-                                768: { slidesPerView: 2 },
-                                1024: { slidesPerView: 3 },
-                            }}
-                            style={{
-                                "--swiper-navigation-color": "#ffffff",
-                                "--swiper-pagination-color": "#ffffff",
-                            }}
-                        >
-                            {blogs.map((blog) => (
-                                <SwiperSlide
-                                    key={blog._id}
-                                    className="transform transition duration-500 hover:scale-105"
-                                >
-                                    <div className="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400">
-                                        <div className="relative w-full h-auto overflow-hidden rounded-lg">
-                                            <Image
-                                                src={`/uploads/article/${blog.imageUrl}`}
-                                                alt={blog.title}
-                                                layout="responsive"
-                                                width={600}
-                                                height={400}
-                                                className="w-full h-auto object-cover rounded-lg"
-                                            />
-                                            <div className="absolute inset-0 bg-black opacity-50 rounded-lg"></div> {/* Overlay */}
+                            <Swiper
+                                pagination={{ clickable: true }}
+                                scrollbar={{ draggable: true }}
+                                modules={[Navigation, Pagination]}
+                                loop={shouldLoop}
+                                centeredSlides={blogs.length < 3}
+                                className="w-full px-4 md:px-20"
+                                spaceBetween={30}
+                                navigation={!isMobile} // Disable navigation on mobile
+                                breakpoints={{
+                                    640: { slidesPerView: 1 },
+                                    768: { slidesPerView: 2 },
+                                    1024: { slidesPerView: 3 },
+                                }}
+                                style={{
+                                    "--swiper-navigation-color": "#ffffff",
+                                    "--swiper-pagination-color": "#ffffff",
+                                }}
+                            >
+                                {blogs.map((blog) => (
+                                    <SwiperSlide
+                                        key={blog._id}
+                                        className="transform transition duration-500 hover:scale-105"
+                                    >
+                                        <div className="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400">
+                                            <div className="relative w-full h-auto overflow-hidden rounded-lg">
+                                                <Image
+                                                    src={`/uploads/article/${blog.imageUrl}`}
+                                                    alt={blog.title}
+                                                    layout="responsive"
+                                                    width={600}
+                                                    height={400}
+                                                    className="w-full h-auto object-cover rounded-lg"
+                                                />
+                                                <div className="absolute inset-0 bg-black opacity-50 rounded-lg"></div> {/* Overlay */}
+                                            </div>
+
+
+                                            <div className="blog absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent transition-opacity duration-300 p-4 opacity-90 hover:opacity-100">
+                                                <p className="text-gray-300 blog text-2xl font-semibold drop-shadow-lg mb-2">
+                                                    {blog.title}
+                                                </p>
+                                                <p className="text-gray-300 text-md mb-4">
+                                                    {blog.content.slice(0, 100)}...
+                                                </p>
+
+                                                <Link href={`/blogs/read/${blog._id}`}>
+                                                    <button className="mt-2 py-2 px-4 bg-gradient-to-r from-violet-500 to-violet-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
+                                                        Read More
+                                                    </button>
+                                                </Link>
+                                            </div>
                                         </div>
-
-
-                                        <div className="blog absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black to-transparent transition-opacity duration-300 p-4 opacity-90 hover:opacity-100">
-                                            <p className="text-gray-300 blog text-2xl font-semibold drop-shadow-lg mb-2">
-                                                {blog.title}
-                                            </p>
-                                            <p className="text-gray-300 text-md mb-4">
-                                                {blog.content.slice(0, 100)}...
-                                            </p>
-
-                                            <Link href={`/blogs/read/${blog._id}`}>
-                                                <button className="mt-2 py-2 px-4 bg-gradient-to-r from-violet-500 to-violet-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
-                                                    Read More
-                                                </button>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </>) : (<div>
+                            <h1 className="text-violet-100 text-4xl md:text-6xl font-extrabold mb-3 mt-2 text-center drop-shadow-lg animate-fadeInUp">
+                                No Blog Found
+                            </h1>
+                        </div>)
                 )}
             </div>
         </div>

@@ -16,6 +16,7 @@ const Page = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <button onClick={logout}>LogOut</button>
+            <Link href={"/"}>Home</Link>
             <h1 className="text-4xl font-bold mb-10">Admin Dashboard</h1>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 {/* Category Management Link */}

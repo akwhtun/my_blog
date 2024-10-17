@@ -1,5 +1,0 @@
-Nsrsd9JLSUfyId0R
-
-akwhtun
-
-mongodb+srv://akwhtun:Nsrsd9JLSUfyId0R@cluster0.hg4t7.mongodb.net/blog

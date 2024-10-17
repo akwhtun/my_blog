@@ -22,8 +22,11 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="text-white text-2xl font-bold">
-                    <Link href="/"> My Romantic Blog</Link>
+                    <Link href="/">
+                        <img src="/logo.png" alt="Logo" className="h-12 w-auto" />
+                    </Link>
                 </div>
+
 
                 <div className="flex items-center">
                     <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">

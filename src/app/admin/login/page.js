@@ -47,7 +47,7 @@ const Page = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <p className="text-red-500 text-sm text-center mb-4">If you are seeing this, I don't want to do anything(any features) to access my dashboard for now.</p>
+                <p className="text-red-500 text-sm text-center mb-4">You might see this because I don't want to do anything(any features) to access my dashboard for now.</p>
                 <h1 className="text-2xl font-semibold mb-6 text-center">Admin Login</h1>
 
                 {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
