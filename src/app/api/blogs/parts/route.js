@@ -4,6 +4,9 @@ import Part from "@/app/models/Part";
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb"; // Import ObjectId for validation and casting
 
+// Force the route to be dynamic
+export const dynamic = 'force-dynamic';
+
 export async function GET(request) {
     try {
         const { searchParams } = new URL(request.url);

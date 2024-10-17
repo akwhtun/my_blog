@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { createCategory, deleteCategory, fetchCategories } from './manager';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -134,4 +134,13 @@ const CategoryManager = () => {
     );
 };
 
-export default CategoryManager;
+
+const CategoryManagerWithSuspense = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CategoryManager />
+        </Suspense>
+    );
+};
+
+export default CategoryManagerWithSuspense;

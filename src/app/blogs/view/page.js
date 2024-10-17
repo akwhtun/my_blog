@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { fetchBlogs, deleteBlog } from './manager';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -129,4 +129,13 @@ const BlogManager = () => {
     );
 };
 
-export default BlogManager;
+const BlogManagerWithSuspense = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <BlogManager />
+        </Suspense>
+    );
+};
+
+
+export default BlogManagerWithSuspense;

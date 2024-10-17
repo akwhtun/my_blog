@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { createPart } from './manager';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
@@ -125,4 +125,13 @@ const PartManager = () => {
     );
 };
 
-export default PartManager;
+const PartManagerWithSuspense = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PartManager />
+        </Suspense>
+    );
+};
+
+export default PartManagerWithSuspense;
+

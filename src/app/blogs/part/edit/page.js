@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { fetchOneBlogPart, UpdateBlogPart } from "../../view/manager";  // Assuming you have these functions in your manager
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -139,4 +139,12 @@ const BlogPartManager = () => {
     );
 };
 
-export default BlogPartManager;
+const BlogPartManagerWithSuspense = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <BlogPartManager />
+        </Suspense>
+    );
+};
+
+export default BlogPartManagerWithSuspense;

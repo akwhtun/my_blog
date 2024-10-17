@@ -1,9 +1,11 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { createBlog } from './manager';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { fetchCategories } from "../../categories/view/manager"
+import { fetchCategories } from "../../categories/view/manager";
+
+// Wrap your BlogManager component with Suspense
 const BlogManager = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -35,7 +37,6 @@ const BlogManager = () => {
         loadCategories();
     }, []);
 
-
     const handleCreateBlog = async () => {
         try {
             setCreateLoading(true);
@@ -46,11 +47,8 @@ const BlogManager = () => {
             formData.append('categoryId', categoryId);
             formData.append('image', imageUrl);
 
-
             const responseMsg = await createBlog(formData);
             router.push(`/blogs/view?message=Blog created`);
-
-
         } catch (error) {
             setMsg(error.message);
         } finally {
@@ -67,19 +65,17 @@ const BlogManager = () => {
             <div className="flex justify-center items-center min-h-screen">
                 <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
             </div>
-        )
+        );
     }
 
     return (
         <div className="max-w-2xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-
             <div className="flex items-center mb-5">
-
                 <ArrowLeftIcon
                     className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
                     onClick={() => router.back()}
                 />
-                <h2 className="text-2xl ms-4 font-semibold text-violet-600  text-center">
+                <h2 className="text-2xl ms-4 font-semibold text-violet-600 text-center">
                     Blog Manager
                 </h2>
             </div>
@@ -99,7 +95,6 @@ const BlogManager = () => {
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                     rows="5"
                 />
-
                 <input
                     type="text"
                     value={author}
@@ -107,8 +102,6 @@ const BlogManager = () => {
                     placeholder="New Author"
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
                 />
-
-
                 <select
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
@@ -121,10 +114,9 @@ const BlogManager = () => {
                         </option>
                     ))}
                 </select>
-
                 <input
                     type="file"
-                    name='image'
+                    name="image"
                     accept="image/*"
                     onChange={handleImageChange}
                     className="w-full p-2 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 mb-2"
@@ -143,9 +135,16 @@ const BlogManager = () => {
             </button>
 
             {msg && <p className="text-red-500 mt-4">{msg}</p>}
-
         </div>
     );
 };
 
-export default BlogManager;
+const BlogManagerWithSuspense = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <BlogManager />
+        </Suspense>
+    );
+};
+
+export default BlogManagerWithSuspense;
