@@ -12,7 +12,7 @@ const AboutPage = () => {
 
     return (
         <div className="bg-violet-100 min-h-screen flex items-center justify-center">
-            <div className="max-w-2xl w-full mx-4 p-8 md:mt-0 mt-3 bg-white rounded-xl shadow-lg">
+            <div className="max-w-2xl w-full mx-4 p-8 md:mt-0 mt-8 bg-white rounded-xl shadow-lg">
                 <h2 className="text-4xl font-bold text-violet-700 text-center">My Story</h2>
 
                 <p className="mt-6 text-lg text-gray-700 leading-relaxed">

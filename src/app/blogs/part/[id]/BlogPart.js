@@ -93,7 +93,7 @@ export default function BlogPart({ id }) {
                             </p>
                             <div className='flex flex-col'>
                                 {blog.map((part) => (
-                                    <Link href={`/blogs/part/${part._id}?blogId=${blogId}&blogTitle=${blogTitle}`} className={`text-md mb-2 ${part._id == blogPartId ? 'text-violet-600' : 'text-gray-200'}`}>
+                                    <Link href={`/blogs/part/${part._id}?blogId=${blogId}&blogTitle=${blogTitle}`} className={`text-md mb-2 blog ${part._id == blogPartId ? 'text-violet-600' : 'text-black'}`}>
                                         Part {partCount++} - {part.part}
                                     </Link>
                                 ))}
