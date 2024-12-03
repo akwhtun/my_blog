@@ -96,7 +96,7 @@ const Layout = () => {
                                         <div className="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400">
                                             <div className="relative w-full h-auto overflow-hidden rounded-lg">
                                                 <Image
-                                                    src={`/uploads/article/${blog.imageUrl}`}
+                                                    src={blog.imageUrl}
                                                     alt={blog.title}
                                                     layout="responsive"
                                                     width={600}

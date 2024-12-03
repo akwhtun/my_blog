@@ -50,7 +50,6 @@ const BlogManager = ({ params }) => {
 
 
     const handleUpdateBlog = async () => {
-        console.log(updatedBlog);
 
         try {
             setUpdateLoading(true);
@@ -60,6 +59,8 @@ const BlogManager = ({ params }) => {
             formData.append('author', updatedBlog.author);
             formData.append('categoryId', updatedBlog.category_id);
             formData.append('image', updatedBlog.imageUrl);
+
+
             const responseMsg = await UpdateBlog(id, formData);
             router.push(`/blogs/view?message=${responseMsg}`);
 
@@ -150,7 +151,7 @@ const BlogManager = ({ params }) => {
                 />
                 {oldBlog.imageUrl && (
                     <img
-                        src={`/uploads/article/${oldBlog.imageUrl}`}  // Show current image if available
+                        src={oldBlog.imageUrl} // Show current image if available
                         alt={oldBlog.title}
                         className="w-full h-48 object-cover my-2 rounded-lg"
                     />

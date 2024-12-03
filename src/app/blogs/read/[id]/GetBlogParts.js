@@ -66,7 +66,7 @@ export default function GetBlogParts({ id }) {
         <div className="relative w-full min-h-screen bg-violet-200">
             {/* Main blog banner image */}
             <Image
-                src={`/uploads/article/${blog.imageUrl}`}
+                src={blog.imageUrl}
                 alt="Romantic Banner"
                 layout="fill"
                 objectFit="cover"
@@ -123,7 +123,7 @@ export default function GetBlogParts({ id }) {
                                     <div className="h-80 py-1 my-1 relative overflow-hidden rounded-lg transition-transform duration-300 blog">
                                         <div className="relative py-2 w-full h-full rounded-lg overflow-hidden">
                                             <Image
-                                                src={`/uploads/part/${part.imageUrl}`}
+                                                src={part.imageUrl}
                                                 alt={part.part}
                                                 width={500}
                                                 height={300}

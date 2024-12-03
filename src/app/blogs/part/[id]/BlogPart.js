@@ -48,7 +48,7 @@ export default function BlogPart({ id }) {
     return (
         <div className="relative w-full h-screen bg-violet-200 overflow-hidden">
             <Image
-                src={`/uploads/part/${blogPart.imageUrl}`}
+                src={blogPart.imageUrl}
                 alt="Romantic Banner"
                 layout="fill"
                 objectFit="cover"

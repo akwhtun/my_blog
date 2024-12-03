@@ -114,7 +114,7 @@ const BlogPartManager = () => {
                 />
                 {oldBlogPart.imageUrl && (
                     <img
-                        src={`/uploads/part/${oldBlogPart.imageUrl}`}
+                        src={oldBlogPart.imageUrl}
                         alt={oldBlogPart.title}
                         className="w-full h-48 object-cover my-2 rounded-lg"
                     />

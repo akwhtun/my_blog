@@ -48,7 +48,7 @@ const BlogManager = () => {
             formData.append('image', imageUrl);
 
             const responseMsg = await createBlog(formData);
-            router.push(`/blogs/view?message=Blog created`);
+            router.push(`/blogs/view?message=${responseMsg}`);
         } catch (error) {
             setMsg(error.message);
         } finally {

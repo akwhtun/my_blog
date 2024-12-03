@@ -10,7 +10,6 @@ const Page = () => {
     // Use useEffect to safely access sessionStorage in the client-side environment
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            // We're in the browser, so it's safe to access sessionStorage
             const storedAuthData = sessionStorage.getItem("authData");
             if (storedAuthData) {
                 setAuthData(JSON.parse(storedAuthData));

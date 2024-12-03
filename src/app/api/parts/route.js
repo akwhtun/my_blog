@@ -1,8 +1,6 @@
 import dbConnect from "@/app/lib/dbConnect";
 import Part from "@/app/models/Part";
 import { NextResponse } from "next/server";
-import fs from 'fs';
-import path from 'path';
 export async function POST(request) {
 
     try {
@@ -13,47 +11,40 @@ export async function POST(request) {
         const part = form.get('part');
         const content = form.get('content');
         const status = form.get('status');
-        const file = form.get('image');
-        const imageUrl = file.name;
+        const fileData = form.get('image');
 
-        console.log("hre is ", article_id, part, content, status, imageUrl);
+        const formData = new FormData();
+        if (fileData instanceof File) {
+            formData.append('file', fileData);
+        } else {
+            console.error('No file provided or invalid file format');
+            return NextResponse.json({ message: "Invalid file format or file missing" }, { status: 400 });
+        }
 
+        formData.append('upload_preset', 'my-uploads');
+
+        // Fetch image upload to Cloudinary
+        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dqcmn6mqw/image/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        // Check for fetch failure or invalid response
+        if (!cloudinaryResponse.ok) {
+            console.error("Cloudinary upload failed:", cloudinaryResponse.statusText);
+            return NextResponse.json({ message: "Cloudinary Server Error" }, { status: 500 });
+        }
+
+        const data = await cloudinaryResponse.json();
+        const imageUrl = data.secure_url;
+
+        if (!imageUrl) {
+            return NextResponse.json({ message: "Cloudinary Server Error: No URL returned" }, { status: 500 });
+        }
 
         await dbConnect();
-        const newPart = await Part.create({ article_id, part, content, status, imageUrl });
+        await Part.create({ article_id, part, content, status, imageUrl });
 
-        if (newPart) {
-            let fileToSave;
-
-            form.forEach((value, key) => {
-                if (value instanceof File) {
-                    console.log("value of file", value);
-
-                    fileToSave = value; // Get the file from formData
-                } else {
-                    console.log(`${key}: ${value}`); // Log other form fields
-                }
-            });
-            if (fileToSave) {
-                // Create a directory to save the file inside 'public/uploads/article' (if it doesn't exist)
-                const publicDirectoryPath = path.join(process.cwd(), 'public/uploads/part/');
-                if (!fs.existsSync(publicDirectoryPath)) {
-                    fs.mkdirSync(publicDirectoryPath, { recursive: true });
-                }
-
-                // Get the file's buffer
-                const fileBuffer = Buffer.from(await fileToSave.arrayBuffer());
-
-                // Define the full path to save the file inside 'public/uploads/parts'
-                const filePath = path.join(publicDirectoryPath, fileToSave.name);
-
-                // Write the file to the 'public/uploads/article' directory
-                fs.writeFileSync(filePath, fileBuffer);
-
-                console.log(`File saved to: ${filePath}`);
-            }
-
-        }
         return NextResponse.json({ message: "Blog part created successfully" }, { status: 201 });
     } catch (error) {
         console.error("Error occurred while creating blog part:", error);

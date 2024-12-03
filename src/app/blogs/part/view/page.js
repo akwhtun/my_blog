@@ -69,7 +69,7 @@ const BlogPartManager = () => {
 
                     {/* Resize image */}
                     <img
-                        src={`/uploads/part/${blogPart.imageUrl}`}
+                        src={blogPart.imageUrl}
                         alt={blogPart.title}
                         className="w-full h-80 object-cover my-2 rounded-lg"
                     />

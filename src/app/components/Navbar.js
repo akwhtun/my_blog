@@ -2,10 +2,17 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import BackgroundMusic from './BackgroundMusic';
-
+import { signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import withAuth from 'next-auth/middleware';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMusicOn, setIsMusicOn] = useState(false);
+
+    const { data: session, status } = useSession();
+
+
+
 
     const toggleMusic = () => {
         setIsMusicOn((prev) => !prev);
@@ -26,7 +33,6 @@ const Navbar = () => {
                         <img src="/logo.png" alt="Logo" className="h-12 w-auto" />
                     </Link>
                 </div>
-
 
                 <div className="flex items-center">
                     <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
@@ -54,28 +60,30 @@ const Navbar = () => {
                     <Link href="/blogs" className="block text-white text-lg py-2 hover:underline hover:text-rose-100 transition duration-300">
                         Blogs
                     </Link>
-
-                    {/* Music Toggle Switch */}
-                    {/* <div className="flex items-center mt-4">
-                        <span className="text-white text-lg mr-2">Background Music:</span>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="sr-only"
-                                checked={isMusicOn}
-                                onChange={toggleMusic}
-                            />
-                            <div className="w-11 h-6 bg-gray-200 rounded-full"></div>
-                            <div
-                                className={`absolute w-5 h-5 bg-white rounded-full transition ${isMusicOn ? 'translate-x-5 bg-violet-600' : 'translate-x-0'
-                                    }`}
-                            ></div>
-                        </label>
-                    </div>
-                    <BackgroundMusic isPlaying={isMusicOn} /> */}
+                    {
+                        session ? (<button
+                            onClick={() => signOut()}
+                            className={`lg:mt-1 mt-3 flex items-center px-4 py-2 border  rounded-md shadow-sm text-sm font-medium bg-violet-600 text-white`}
+                        >
+                            {session.user.name}
+                        </button>) : (
+                            <button
+                                onClick={() => signIn('google')}
+                                className={`lg:mt-1 mt-3 flex items-center px-4 py-2 border  rounded-md shadow-sm text-sm font-medium bg-violet-600 text-white`}
+                            >
+                                <img
+                                    src="https://developers.google.com/identity/images/g-logo.png"
+                                    alt="Google logo"
+                                    className="w-5 h-5 mr-2"
+                                />
+                                Sign in with Google
+                            </button>
+                        )
+                    }
                 </div>
             )}
         </nav>
+
     );
 };
 

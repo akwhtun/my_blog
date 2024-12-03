@@ -6,6 +6,7 @@ export interface IUser extends Document {
     imageUrl: string;
     isAdmin: boolean;
     created_date: Date;
+
 }
 
 const UserShema = new mongoose.Schema({

@@ -6,7 +6,7 @@ export const createBlog = async (formData) => {
 
 
             if (value == "null" || value.size == 0 || value == "" || value == "undefined") {
-                console.log("this is image", key, value);
+
                 isValid = false;
             }
             else if (value.size > 5 * 1024 * 1024) {
@@ -27,6 +27,8 @@ export const createBlog = async (formData) => {
     } else {
 
         try {
+
+
 
             const response = await fetch('/api/blogs', {
                 method: 'POST',

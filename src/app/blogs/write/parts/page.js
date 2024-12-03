@@ -19,9 +19,6 @@ const PartManager = () => {
     const [msg, setMsg] = useState();
 
 
-
-
-
     const handleCreatePart = async () => {
 
         try {
@@ -34,7 +31,8 @@ const PartManager = () => {
             formData.append('status', status)
 
             const responseMsg = await createPart(formData);
-            router.push(`/blogs/view/${id}?message="Blog Part created"`);
+
+            router.push(`/blogs/view/${id}?message=${responseMsg}`);
 
 
         } catch (error) {

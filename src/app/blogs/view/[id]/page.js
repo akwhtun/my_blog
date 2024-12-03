@@ -109,7 +109,7 @@ const BlogManager = ({ params }) => {
 
                         {/* Resize image */}
                         <img
-                            src={`/uploads/part/${blog.imageUrl}`}
+                            src={blog.imageUrl}
                             alt={blog.title}
                             className="w-full h-56 object-cover my-2 rounded-lg"
                         />
