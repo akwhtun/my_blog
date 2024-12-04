@@ -65,7 +65,7 @@ const Layout = () => {
                 ) : (
                     blogs.length > 0 ?
                         (<>
-                            <h1 className="text-violet-100 text-4xl md:text-6xl font-extrabold mb-3 mt-2 text-center drop-shadow-lg animate-fadeInUp">
+                            <h1 className="text-violet-100 text-4xl md:text-6xl font-extrabold mb-3 mt-6 text-center drop-shadow-lg animate-fadeInUp">
                                 Blog Highlights
                             </h1>
 
@@ -91,17 +91,17 @@ const Layout = () => {
                                 {blogs.map((blog) => (
                                     <SwiperSlide
                                         key={blog._id}
-                                        className="transform transition duration-500 hover:scale-105"
+                                        className="transform transition duration-500 "
                                     >
-                                        <div className="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400">
-                                            <div className="relative w-full h-auto overflow-hidden rounded-lg">
+                                        <div className="relative rounded-lg shadow-lg transition-transform duration-300  hover:shadow-2xl bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400">
+
+                                            <div className="relative rounded-lg flex justify-center w-full h-full">
                                                 <Image
                                                     src={blog.imageUrl}
                                                     alt={blog.title}
-                                                    layout="responsive"
-                                                    width={600}
-                                                    height={400}
-                                                    className="w-full h-auto object-cover rounded-lg"
+                                                    width={800}
+                                                    height={700}
+                                                    className="object-cover rounded-lg"
                                                 />
                                                 <div className="absolute inset-0 bg-black opacity-50 rounded-lg"></div> {/* Overlay */}
                                             </div>
@@ -115,8 +115,8 @@ const Layout = () => {
                                                     {blog.content.slice(0, 100)}...
                                                 </p>
 
-                                                <Link href={`/blogs/read/${blog._id}`}>
-                                                    <button className="mt-2 py-2 px-4 bg-gradient-to-r from-violet-500 to-violet-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
+                                                <Link href={`/blogs/read/${blog._id}`} className='cursor-pointer'>
+                                                    <button className="mt-2 py-1 px-3 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-800 transition ">
                                                         Read More
                                                     </button>
                                                 </Link>

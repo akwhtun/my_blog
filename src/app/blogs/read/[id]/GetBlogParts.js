@@ -81,38 +81,41 @@ export default function GetBlogParts({ id }) {
             ) : blogParts.length > 0 ? (
                 <div className="absolute inset-0 flex flex-col items-center text-center px-5 backdrop-blur-md overflow-auto h-full blog">
                     {/* Blog Details */}
-                    <div className="flex justify-around items-center mt-24 pt-1 mb-2">
-                        <ArrowLeftIcon
-                            className="w-9 h-9 text-violet-600 cursor-pointer hover:text-violet-400"
-                            onClick={() => router.back()}
-                        />
-
+                    <div className="flex flex-col items-center mt-24 pt-1 mb-2 ">
+                        <div className='w-28 h-8 bg-gray-700 text-white text-center rounded-md cursor-pointer' onClick={() => router.back()}>
+                            Back
+                        </div>
                         <h1 className="ms-4 text-white text-2xl font-bold  leading-tight tracking-wide">
                             {blog.title}
                         </h1>
                     </div>
                     <p className="text-sm text-gray-300 my-2">{blog.content}</p>
-                    <p className="text-sm text-gray-500">By: {blog.author}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-200">By: {blog.author}</p>
+                    <p className="text-sm text-gray-200">
                         Published on: {new Date(blog.created_date).toLocaleDateString()}
                     </p>
-                    <p className="text-white font-bold my-2 leading-tight tracking-wide">
-                        Blog Parts
+                    <p className="text-white font-bold mt-2 leading-tight tracking-wide">
+                        {blogParts.length > 1 ? (`Blog Parts - ${blogParts.length} Parts`) : (`Blog Part - ${blogParts.length} Part`)}
                     </p>
 
                     {/* Swiper Component */}
-                    <div className="w-full flex justify-center mt-5">
+                    <div className="w-full flex justify-center mt-2">
                         <Swiper
                             direction={'vertical'}
                             pagination={{ clickable: true }}
                             navigation={!isMobile}
                             scrollbar={{ draggable: true }}
+                            spaceBetween={30}
                             modules={[Navigation, Pagination]}
                             mousewheel={true}
-                            loop={true}
                             slidesPerView={2}
 
-                            className="w-full max-w-md h-[600px]"
+
+                            className="w-full max-w-md h-[690px]"
+                            style={{
+                                "--swiper-navigation-color": "#ffffff",
+                                "--swiper-pagination-color": "#ffffff",
+                            }}
                         >
                             {blogParts.map((part) => (
                                 <SwiperSlide
@@ -121,7 +124,7 @@ export default function GetBlogParts({ id }) {
                                 >
                                     {/* Blog Part Slide Content */}
                                     <div className="h-80 py-1 my-1 relative overflow-hidden rounded-lg transition-transform duration-300 blog">
-                                        <div className="relative py-2 w-full h-full rounded-lg overflow-hidden">
+                                        <div className="relative w-full h-full rounded-lg overflow-hidden">
                                             <Image
                                                 src={part.imageUrl}
                                                 alt={part.part}
@@ -138,7 +141,7 @@ export default function GetBlogParts({ id }) {
                                                 {part.content.slice(0, 100)}...
                                             </p>
                                             <Link href={`/blogs/part/${part._id}?blogId=${blog._id}&blogTitle=${blog.title}`}>
-                                                <button className="mt-2 py-2 px-4 bg-gradient-to-r from-violet-500 to-violet-700 text-gray-300 rounded-lg  hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
+                                                <button className="mt-2 px-2 bg-gradient-to-r from-gray-500 to-gray-700 text-gray-300 rounded-lg  hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-800 transition">
                                                     Read More
                                                 </button>
                                             </Link>
@@ -168,7 +171,7 @@ export default function GetBlogParts({ id }) {
 
     //     {loading ? (
     //         <div className="flex justify-center items-center h-screen">
-    //             <div className="w-16 h-16 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+    //             <div className="w-16 h-16 border-4 border-t-transparent border-gray-500 rounded-full animate-spin"></div>
     //         </div>
     //     ) : (
     //         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 backdrop-blur-md">
@@ -210,7 +213,7 @@ export default function GetBlogParts({ id }) {
     //                                     {part.content.slice(0, 50)}...
     //                                 </p>
     //                                 <Link href={`/blogs/read/${part._id}`}>
-    //                                     <button className="mt-2 py-2 px-4 bg-gradient-to-r from-violet-500 to-violet-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
+    //                                     <button className="mt-2 py-2 px-4 bg-gradient-to-r from-gray-500 to-violet-700 text-white rounded-lg font-medium hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 transition">
     //                                         Read More
     //                                     </button>
     //                                 </Link>

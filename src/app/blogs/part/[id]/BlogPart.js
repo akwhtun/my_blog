@@ -53,7 +53,7 @@ export default function BlogPart({ id }) {
                 layout="fill"
                 objectFit="cover"
                 quality={100}
-                className="absolute w-full h-full object-cover brightness-75 opacity-80"
+                className="absolute w-full h-full object-cover brightness-75 opacity-90"
             />
 
             {loading ? (
@@ -62,17 +62,19 @@ export default function BlogPart({ id }) {
                 </div>
             ) : (
                 <div className="absolute inset-0 px-4 flex flex-col items-center mt-24">
-                    <p className="text-xl mb-2 text-gray-900 leading-relaxed font-serif blog">
+                    <Link href={`/blogs/read/${blogId}`} className='cursor-pointer'>
+                        <div className='w-28 h-7 bg-gray-700 text-white text-center rounded-md'>
+                            Back
+                        </div>
+                    </Link>
+                    <p className="text-xl mb-2 text-white leading-relaxed font-serif blog">
                         {blogTitle}
                     </p>
-                    <div className="bg-white bg-opacity-30 backdrop-blur-lg border border-violet-300 shadow-lg rounded-xl lg:w-4/12 md:w-8/12 sm:w-9/12 w-full p-5 text-center animate-fade-in-slow overflow-scroll blog">
+                    <div className="bg-white bg-opacity-50 backdrop-blur-lg border border-violet-300 shadow-lg rounded-xl lg:w-4/12 md:w-8/12 sm:w-9/12 w-full p-5 text-center animate-fade-in-slow overflow-scroll blog">
                         <div className="flex items-center mb-5">
 
-                            <ArrowLeftIcon
-                                className="w-6 h-6 text-violet-600 cursor-pointer hover:text-violet-400"
-                                onClick={() => router.back()}
-                            />
-                            <p className="text-xl ms-4 text-gray-900 leading-relaxed font-serif">
+
+                            <p className="text-xl ms-4 text-violet-900 leading-relaxed font-serif">
                                 {blogPart.part}
                             </p>
                         </div>

@@ -43,6 +43,10 @@ body {
   }
 }
 
+/* .blog-high{
+  height:700px;
+} */
+
 /* Customize scrollbar for WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px;
