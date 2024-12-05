@@ -13,6 +13,7 @@ const Navbar = () => {
 
 
 
+    // console.log(session?.user.id);
 
     const toggleMusic = () => {
         setIsMusicOn((prev) => !prev);

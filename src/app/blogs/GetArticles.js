@@ -70,9 +70,9 @@ export default function GetArticles() {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 backdrop-blur-md">
 
                     <Link href={`/`} className='cursor-pointer'>
-                        <div className='w-28 h-7 bg-gray-700 text-white text-center rounded-md mt-24'>
+                        <button className="w-28 h-7 mt-24 bg-gray-700 text-white text-center rounded-md  hover:bg-gray-600 transition">
                             Back
-                        </div>
+                        </button>
                     </Link>
 
                     <h1 className="text-white text-3xl font-bold mt-2 mb-2 leading-tight tracking-wide">

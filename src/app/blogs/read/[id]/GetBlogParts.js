@@ -7,7 +7,6 @@ import { Navigation, Pagination } from 'swiper/modules';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fetchBlogWithParts } from '../../view/manager';
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 export default function GetBlogParts({ id }) {
     const blogId = id;
@@ -26,6 +25,7 @@ export default function GetBlogParts({ id }) {
                 if (fetchedData && fetchedData.blog && fetchedData.blogWithParts) {
                     setBlog(fetchedData.blog);
                     setBlogParts(fetchedData.blogWithParts);
+                    setBlogPartsComments(fetchedData.bologPartsWithComment)
                 } else {
                     console.error("Fetched data does not have the expected structure");
                 }
@@ -79,12 +79,12 @@ export default function GetBlogParts({ id }) {
                     <div className="w-16 h-16 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
                 </div>
             ) : blogParts.length > 0 ? (
-                <div className="absolute inset-0 flex flex-col items-center text-center px-5 backdrop-blur-md overflow-auto h-full blog">
+                <div className="absolute inset-0 flex flex-col items-center text-center px-5 backdrop-blur-md overflow-auto h-full blog eng">
                     {/* Blog Details */}
                     <div className="flex flex-col items-center mt-24 pt-1 mb-2 ">
-                        <div className='w-28 h-8 bg-gray-700 text-white text-center rounded-md cursor-pointer' onClick={() => router.back()}>
+                        .              <button className="w-28 h-7 bg-gray-700 text-white text-center rounded-md  hover:bg-gray-600 transition cursor-pointer eng" onClick={() => router.back()}>
                             Back
-                        </div>
+                        </button>
                         <h1 className="ms-4 text-white text-2xl font-bold  leading-tight tracking-wide">
                             {blog.title}
                         </h1>
@@ -109,8 +109,6 @@ export default function GetBlogParts({ id }) {
                             modules={[Navigation, Pagination]}
                             mousewheel={true}
                             slidesPerView={2}
-
-
                             className="w-full max-w-md h-[690px]"
                             style={{
                                 "--swiper-navigation-color": "#ffffff",
@@ -120,7 +118,7 @@ export default function GetBlogParts({ id }) {
                             {blogParts.map((part) => (
                                 <SwiperSlide
                                     key={part._id}
-                                    className="my-1 relative h-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                                    className="my-1 relative h-full transition-all duration-500 transform hover:scale-105 hover:shadow-2xl "
                                 >
                                     {/* Blog Part Slide Content */}
                                     <div className="h-80 py-1 my-1 relative overflow-hidden rounded-lg transition-transform duration-300 blog">
@@ -140,11 +138,22 @@ export default function GetBlogParts({ id }) {
                                             <p className="text-gray-300 text-sm my-2">
                                                 {part.content.slice(0, 100)}...
                                             </p>
-                                            <Link href={`/blogs/part/${part._id}?blogId=${blog._id}&blogTitle=${blog.title}`}>
-                                                <button className="mt-2 px-2 bg-gradient-to-r from-gray-500 to-gray-700 text-gray-300 rounded-lg  hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-800 transition">
-                                                    Read More
-                                                </button>
-                                            </Link>
+                                            <div className='flex justify-start gap-5 eng'>
+                                                <Link href={`/blogs/part/${part._id}?blogId=${blog._id}&blogTitle=${blog.title}`}>
+                                                    <button className="mt-2 px-2 bg-gradient-to-r from-gray-500 to-gray-700 text-gray-300 rounded-lg  hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-800 transition">
+                                                        Read More
+                                                    </button>
+                                                </Link>
+
+                                                <Link href={`/blogs/part/comments?partId=${part._id}&blogId=${part.article_id}`}>
+                                                    <button className="mt-2 px-2 bg-gray-200 border-3 border-gray-900 rounded-md">
+                                                        {part.commentCount > 0
+                                                            ? `${part.commentCount} ${part.commentCount > 1 ? "Comments" : "Comment"}`
+                                                            : "No Comment Yet"}
+                                                    </button>
+
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </SwiperSlide>

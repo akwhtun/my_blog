@@ -63,9 +63,9 @@ export default function BlogPart({ id }) {
             ) : (
                 <div className="absolute inset-0 px-4 flex flex-col items-center mt-24">
                     <Link href={`/blogs/read/${blogId}`} className='cursor-pointer'>
-                        <div className='w-28 h-7 bg-gray-700 text-white text-center rounded-md'>
+                        <button className="w-28 h-7 bg-gray-700 text-white text-center rounded-md  hover:bg-gray-600 transition">
                             Back
-                        </div>
+                        </button>
                     </Link>
                     <p className="text-xl mb-2 text-white leading-relaxed font-serif blog">
                         {blogTitle}
@@ -81,7 +81,21 @@ export default function BlogPart({ id }) {
                         <p className="text-lg text-gray-800 leading-relaxed font-serif mb-4">
                             {blogPart.content}
                         </p>
-                        <p className="text-right font-serif text-xl text-violet-600 mb-4">
+
+                        <div className="flex items-center justify-between my-3">
+                            <Link href={`/`}>
+                                <button className=" bg-gray-900 border-3 border-gray-200 text-white  px-3 rounded-md">
+                                    Write Your Comment
+                                </button>
+                            </Link>
+                            <Link href={`/`}>
+                                <button className=" bg-gray-200 border-3  px-3 rounded-md">
+                                    3 Comments
+                                </button>
+                            </Link>
+
+                        </div>
+                        <p className="text-right font-serif text-xl text-violet-600">
                             {blogPart.status === 0 ? "To be continued..." : "End"}
                         </p>
                         <p className="text-sm text-gray-600">
