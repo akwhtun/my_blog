@@ -38,7 +38,7 @@ export default function EditCommentForm() {
             setUpdateLoading(true)
 
             const responseMsg = await updateComment(commentId, comment);
-            router.push(`/blogs/part/comments?partId=${data.part_id}&$blogId=${data.article_id}&message=${responseMsg}`);
+            router.push(`/blogs/part/comments?partId=${data.part_id}&blogId=${data.article_id}&message=${responseMsg}`);
         } catch (error) {
             setMsg(error.message)
         } finally {

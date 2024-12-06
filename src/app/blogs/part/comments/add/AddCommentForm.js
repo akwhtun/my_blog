@@ -36,7 +36,7 @@ export default function AddCommentForm() {
             // }
             const responseMsg = await createComment(formData);
             setMsg(responseMsg)
-            router.push(`/blogs/part/comments?partId=67122a63a62ab212917f1f06&blogId=67122a2fa62ab212917f1f02&message=${responseMsg}`);
+            router.push(`/blogs/part/comments?partId=${partId}&blogId=${blogId}&message=${responseMsg}`);
         } catch (error) {
             setMsg(error.message)
         } finally {

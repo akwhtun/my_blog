@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { fetchBlogPartComments } from "./manager";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { deleteComment } from "./manager";
 export default function GetComments() {
     const router = useRouter();
@@ -67,7 +67,7 @@ export default function GetComments() {
                 <p className="mt-24 "></p>
                 {msg && <p className="text-violet-900">{msg}</p>}
 
-                <Link href={`/blogs/part/${comments[0]?.part._id}?blogId=${comments[0]?.part.article_id}&blogTitle=${comments[0]?.part.part}`}>
+                <Link href={`/blogs/read/${blogId}`}>
                     <button className="w-28 h-7 bg-gray-700 text-white text-center rounded-md  hover:bg-gray-600 transition mt-3" >
                         Back
                     </button>
@@ -89,7 +89,9 @@ export default function GetComments() {
                         <button className="px-4 py-2 text-white bg-violet-800 text-center rounded-md mb-4  hover:bg-violet-600 transition">
                             Add Your Comment
                         </button>
-                    </Link>) : (<div></div>)}
+                    </Link>) : (<button onClick={() => signIn("google")} className=" cursor-pointer px-4 py-2 text-white bg-violet-800 text-center rounded-md mb-4  hover:bg-violet-600 transition">
+                        Add Your Comment
+                    </button>)}
                     {comments.length > 0 ? (
                         comments.map((comment) => (
                             <div

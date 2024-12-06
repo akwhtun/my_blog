@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-// Middleware function
 export async function middleware(request) {
     const token = await getToken({ req: request, secret: process.env.AUTH_SECRET });
 
@@ -9,32 +8,54 @@ export async function middleware(request) {
     const { pathname } = request.nextUrl;
 
     // Routes that are for authenticated users only
-    const protectedRoutes = ["/about", "/dashboard"];
-    // Routes that are for admins only
-    const adminRoutes = ["/admin"];
+    const protectedRoutes = [];
 
+    // Routes that are for admins only
+    const adminRoutes = [
+        "/categories",
+        "/admin",
+        "/blogs/view",
+        "/blogs/write/parts",
+        "/blogs/edit",
+        "/blogs/create",
+        "/blogs/part/view",
+        "/blogs/part/edit",
+    ];
+
+    // Handle unauthenticated users
     if (!token) {
-        // If no token is found and the route requires authentication
-        if (protectedRoutes.includes(pathname) || adminRoutes.includes(pathname)) {
+        if (
+            protectedRoutes.some((route) => pathname.startsWith(route)) ||
+            adminRoutes.some((route) => pathname.startsWith(route))
+        ) {
             const signInUrl = new URL("/auth/signin", request.url);
             return NextResponse.redirect(signInUrl);
         }
-        // Allow access to public routes for unauthenticated users
         return NextResponse.next();
     }
 
     // Check for admin routes
-    if (adminRoutes.includes(pathname) && !token.isAdmin) {
-        // Redirect to a 403 Forbidden page if the user is not an admin
+    if (
+        adminRoutes.some((route) => pathname.startsWith(route)) &&
+        !token.isAdmin
+    ) {
         const forbiddenUrl = new URL("/403", request.url);
         return NextResponse.redirect(forbiddenUrl);
     }
 
-    // Allow access for authenticated users and admins
     return NextResponse.next();
 }
 
-// Specify which routes the middleware should protect
+// Correct matcher configuration
 export const config = {
-    matcher: ["/about", "/dashboard", "/admin"], // List all protected routes here
+    matcher: [
+        "/categories/:path*",   // Matches dynamic and nested paths under /categories
+        "/admin",
+        "/blogs/view/:path*",   // Matches dynamic and nested paths under /blogs/view
+        "/blogs/edit/:path*",   // Matches dynamic and nested paths under /blogs/edit
+        "/blogs/write/parts",   // Specific route
+        "/blogs/create/:path*",
+        "/blogs/part/:path*",
+    ],
 };
+

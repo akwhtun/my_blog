@@ -25,7 +25,6 @@ export default function GetBlogParts({ id }) {
                 if (fetchedData && fetchedData.blog && fetchedData.blogWithParts) {
                     setBlog(fetchedData.blog);
                     setBlogParts(fetchedData.blogWithParts);
-                    setBlogPartsComments(fetchedData.bologPartsWithComment)
                 } else {
                     console.error("Fetched data does not have the expected structure");
                 }
@@ -81,7 +80,7 @@ export default function GetBlogParts({ id }) {
             ) : blogParts.length > 0 ? (
                 <div className="absolute inset-0 flex flex-col items-center text-center px-5 backdrop-blur-md overflow-auto h-full blog eng">
                     {/* Blog Details */}
-                    <div className="flex flex-col items-center mt-24 pt-1 mb-2 ">
+                    <div className="flex flex-col items-center mt-16 pt-1 mb-2 ">
                         .              <button className="w-28 h-7 bg-gray-700 text-white text-center rounded-md  hover:bg-gray-600 transition cursor-pointer eng" onClick={() => router.back()}>
                             Back
                         </button>
