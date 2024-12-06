@@ -1,13 +1,15 @@
+// app/auth/signin/page.js
 "use client";
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function Page() {
+function SignInPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/"; // Default to home page if no callback URL is provided
+    const callbackUrl = searchParams?.get("callbackUrl") || "/"; // Default to home page
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -31,5 +33,15 @@ export default function Page() {
                 Sign in with Google
             </button>
         </div>
+    );
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={<div className="flex justify-center items-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+        </div>}>
+            <SignInPage />
+        </Suspense>
     );
 }

@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { fetchComment, updateComment } from "../manager";
+import { Suspense } from "react";
 import Link from "next/link";
-export default function EditCommentForm() {
+const EditComment = () => {
     const router = useRouter()
     const searchParams = useSearchParams();
     const commentId = searchParams.get("id")
@@ -106,5 +107,15 @@ export default function EditCommentForm() {
                 </form>
             </div>
         </div>
+    );
+}
+
+export default function EditCommentForm() {
+    return (
+        <Suspense fallback={<div className="flex justify-center items-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+        </div>}>
+            <EditComment />
+        </Suspense>
     );
 }

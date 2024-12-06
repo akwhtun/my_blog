@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { createComment } from "../manager";
+import { Suspense } from "react";
 import Link from "next/link";
-export default function AddCommentForm() {
+const AddComment = () => {
 
     const router = useRouter();
 
@@ -103,5 +104,16 @@ export default function AddCommentForm() {
                 </form>
             </div>
         </div>
+    );
+}
+
+
+export default function AddCommentForm() {
+    return (
+        <Suspense fallback={<div className="flex justify-center items-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+        </div>}>
+            <AddComment />
+        </Suspense>
     );
 }

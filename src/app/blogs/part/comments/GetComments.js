@@ -7,7 +7,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { deleteComment } from "./manager";
-export default function GetComments() {
+import { Suspense } from "react";
+const Comments = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [deleteLoadingId, setDeleteLoadingId] = useState(false)
@@ -149,5 +150,15 @@ export default function GetComments() {
 
             </div>
         </div>
+    );
+}
+
+export default function GetComments() {
+    return (
+        <Suspense fallback={<div className="flex justify-center items-center min-h-screen">
+            <div className="w-12 h-12 border-4 border-t-transparent border-violet-500 rounded-full animate-spin"></div>
+        </div>}>
+            <Comments />
+        </Suspense>
     );
 }
