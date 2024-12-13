@@ -140,21 +140,21 @@ export default function BlogPart({ id }) {
                             {blogPart.status === 0 ? "To be continued..." : "End"}
                         </p>
 
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-start text-gray-600">
                             Published on: {new Date(blogPart.created_date).toLocaleDateString()}
                         </p>
 
                         <div className="flex items-center justify-between my-3">
 
                             {session?.user ? (<Link href={`/blogs/part/comments/add?userId=${session.user.id}&blogId=${blogId}&partId=${blogPartId}&title=${comments[0]?.part.part}`} className='cursor-pointer'>
-                                <button className=" bg-gray-900 border-3 border-gray-200 text-white  px-3 rounded-md">
+                                <button className="cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3 rounded-md md:text-lg text-sm">
                                     Add Your Comment
                                 </button>
-                            </Link>) : (<button onClick={() => signIn("google")} className=" cursor-pointer px-4 py-2 text-white bg-violet-800 text-center rounded-md mb-4  hover:bg-violet-600 transition">
+                            </Link>) : (<button onClick={() => signIn("google")} className=" cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3  md:text-lg text-sm rounded-md">
                                 Add Your Comment
                             </button>)}
                             <Link href={`/blogs/part/comments?partId=${blogPartId}&blogId=${blogId}`}>
-                                <button className=" bg-gray-200 border-3  px-3 rounded-md">
+                                <button className=" bg-gray-200 border-3  px-2 md:px-3 rounded-md md:text-lg  text-sm">
                                     {comments.length > 0
                                         ? `${comments.length} ${comments.length > 1 ? "Comments" : "Comment"}`
                                         : "No Comment Yet"}

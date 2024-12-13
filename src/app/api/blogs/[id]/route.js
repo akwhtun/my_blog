@@ -4,6 +4,7 @@ import Part from "@/app/models/Part";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
+
     try {
         const { id } = params
         const form = await request.formData();
@@ -12,50 +13,55 @@ export async function PUT(request, { params }) {
         const content = form.get('content');
         const author = form.get('author');
         const fileData = form.get('image');
+        let imageUrl;
+
+        let isContainNewImage = false;
+
+        console.log("form is ", form);
 
         const formData = new FormData();
         if (fileData instanceof File) {
             formData.append('file', fileData);
+            isContainNewImage = true;
         } else {
-            console.error('No file provided or invalid file format');
-            return NextResponse.json({ message: "Invalid file format or file missing" }, { status: 400 });
+            isContainNewImage = false;
         }
 
-        formData.append('upload_preset', 'my-uploads');
+        if (isContainNewImage) {
+            formData.append('upload_preset', 'my-uploads');
 
-        // Fetch image upload to Cloudinary
-        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dqcmn6mqw/image/upload', {
-            method: 'POST',
-            body: formData,
-        });
+            // Fetch image upload to Cloudinary
+            const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dqcmn6mqw/image/upload', {
+                method: 'POST',
+                body: formData,
+            });
 
-        // Check for fetch failure or invalid response
-        if (!cloudinaryResponse.ok) {
-            console.error("Cloudinary upload failed:", cloudinaryResponse.statusText);
-            return NextResponse.json({ message: "Cloudinary Server Error" }, { status: 500 });
+            // Check for fetch failure or invalid response
+            if (!cloudinaryResponse.ok) {
+                return NextResponse.json({ message: "Cloudinary Server Error" }, { status: 500 });
+            }
+
+            const data = await cloudinaryResponse.json();
+            imageUrl = data.secure_url;
+
+            if (!imageUrl) {
+                return NextResponse.json({ message: "Cloudinary Server Error: No URL returned" }, { status: 500 });
+            }
         }
-
-        const data = await cloudinaryResponse.json();
-        const imageUrl = data.secure_url;
-
-        if (!imageUrl) {
-            return NextResponse.json({ message: "Cloudinary Server Error: No URL returned" }, { status: 500 });
+        if (!isContainNewImage) {
+            imageUrl = fileData;
         }
-
         // Connect to database and create article
         await dbConnect();
-        const updateArticle = await Article.findByIdAndUpdate(id, { category_id, title, content, author, imageUrl })
         const updatedArticle = await Article.findByIdAndUpdate(id, { category_id, title, content, author, imageUrl });
 
         if (!updatedArticle) {
-            console.error("No article found with the given ID");
             return NextResponse.json({ message: "Article not found" }, { status: 404 });
         }
 
         return NextResponse.json({ message: "Blog updated successfully" }, { status: 201 });
 
     } catch (error) {
-        console.error("Error occurred while updating Article:", error);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }

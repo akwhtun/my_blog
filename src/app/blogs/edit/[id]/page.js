@@ -61,6 +61,9 @@ const BlogManager = ({ params }) => {
             formData.append('image', updatedBlog.imageUrl);
 
 
+            // formData.forEach((value, key) => {
+            //     console.log(`${key}: ${value}`);
+            // });
             const responseMsg = await UpdateBlog(id, formData);
             router.push(`/blogs/view?message=${responseMsg}`);
 

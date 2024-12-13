@@ -21,6 +21,7 @@ export const UpdateBlog = async (id, formData) => {
 
     const blogId = id;
 
+
     let isValid = true;
     formData.forEach((value, key) => {
         if (key === 'image') {
@@ -62,7 +63,7 @@ export const UpdateBlog = async (id, formData) => {
             const data = await response.json();
             return data.message;
         } catch (error) {
-            console.error('Error creating blog:', error);
+            console.error('Error updating blog:', error);
         }
     }
 
