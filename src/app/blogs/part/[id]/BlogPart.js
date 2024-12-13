@@ -147,14 +147,14 @@ export default function BlogPart({ id }) {
                         <div className="flex items-center justify-between my-3">
 
                             {session?.user ? (<Link href={`/blogs/part/comments/add?userId=${session.user.id}&blogId=${blogId}&partId=${blogPartId}&title=${comments[0]?.part.part}`} className='cursor-pointer'>
-                                <button className="cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3 rounded-md md:text-lg text-sm">
+                                <button className="cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3 rounded-md ">
                                     Add Your Comment
                                 </button>
-                            </Link>) : (<button onClick={() => signIn("google")} className=" cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3  md:text-lg text-sm rounded-md">
+                            </Link>) : (<button onClick={() => signIn("google")} className=" cursor-pointer bg-gray-900 border-3 border-gray-200 text-white  px-2 md:px-3   rounded-md">
                                 Add Your Comment
                             </button>)}
                             <Link href={`/blogs/part/comments?partId=${blogPartId}&blogId=${blogId}`}>
-                                <button className=" bg-gray-200 border-3  px-2 md:px-3 rounded-md md:text-lg  text-sm">
+                                <button className=" bg-gray-200 border-3  px-2 md:px-3 rounded-md">
                                     {comments.length > 0
                                         ? `${comments.length} ${comments.length > 1 ? "Comments" : "Comment"}`
                                         : "No Comment Yet"}
