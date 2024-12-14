@@ -46,7 +46,7 @@ export async function middleware(request) {
     return NextResponse.next();
 }
 
-Correct matcher configuration
+
 export const config = {
     matcher: [
         "/categories/:path*",   // Matches dynamic and nested paths under /categories
