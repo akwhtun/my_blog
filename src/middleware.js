@@ -12,14 +12,14 @@ export async function middleware(request) {
 
     // Routes that are for admins only
     const adminRoutes = [
-        // "/categories",
-        // "/admin",
-        // "/blogs/view",
-        // "/blogs/write/parts",
-        // "/blogs/edit",
-        // "/blogs/create",
-        // "/blogs/part/view",
-        // "/blogs/part/edit",
+        "/categories",
+        "/admin",
+        "/blogs/view",
+        "/blogs/write/parts",
+        "/blogs/edit",
+        "/blogs/create",
+        "/blogs/part/view",
+        "/blogs/part/edit",
     ];
 
     // Handle unauthenticated users
@@ -47,15 +47,15 @@ export async function middleware(request) {
 }
 
 
-// export const config = {
-//     matcher: [
-//         "/categories/:path*",   // Matches dynamic and nested paths under /categories
-//         "/admin",
-//         "/blogs/view/:path*",   // Matches dynamic and nested paths under /blogs/view
-//         "/blogs/edit/:path*",   // Matches dynamic and nested paths under /blogs/edit
-//         "/blogs/write/parts",   // Specific route
-//         "/blogs/create/:path*",
-//         "/blogs/part/:path*",
-//     ],
-// };
+export const config = {
+    matcher: [
+        "/categories/:path*",   // Matches dynamic and nested paths under /categories
+        "/admin",
+        "/blogs/view/:path*",   // Matches dynamic and nested paths under /blogs/view
+        "/blogs/edit/:path*",   // Matches dynamic and nested paths under /blogs/edit
+        "/blogs/write/parts",   // Specific route
+        "/blogs/create/:path*",
+        "/blogs/part/:path*",
+    ],
+};
 
