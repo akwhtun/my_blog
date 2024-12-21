@@ -177,7 +177,7 @@ export const UpdateBlogPart = async (id, formData) => {
             const data = await response.json();
             return data.message;
         } catch (error) {
-            console.error('Error creating blog part:', error);
+            console.error('Error creating blog  part:', error);
         }
     }
 

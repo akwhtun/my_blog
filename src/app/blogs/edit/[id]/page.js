@@ -60,7 +60,6 @@ const BlogManager = ({ params }) => {
             formData.append('categoryId', updatedBlog.category_id);
             formData.append('image', updatedBlog.imageUrl);
 
-
             // formData.forEach((value, key) => {
             //     console.log(`${key}: ${value}`);
             // });

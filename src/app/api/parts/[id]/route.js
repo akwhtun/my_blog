@@ -11,33 +11,40 @@ export async function PUT(request, { params }) {
         const status = form.get('status');
         const fileData = form.get('image');
 
+        let isContainNewImage = false;
+        let imageUrl = fileData;
+
         const formData = new FormData();
         if (fileData instanceof File) {
             formData.append('file', fileData);
+            isContainNewImage = true;
         } else {
-            console.error('No file provided or invalid file format');
-            return NextResponse.json({ message: "Invalid file format or file missing" }, { status: 400 });
+            isContainNewImage = false;
+            // console.error('No file provided or invalid file format');
+            // return NextResponse.json({ message: "Invalid file format or file missing" }, { status: 400 });
         }
 
-        formData.append('upload_preset', 'my-uploads');
+        if (isContainNewImage) {
+            formData.append('upload_preset', 'my-uploads');
 
-        // Fetch image upload to Cloudinary
-        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dqcmn6mqw/image/upload', {
-            method: 'POST',
-            body: formData,
-        });
+            // Fetch image upload to Cloudinary
+            const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dqcmn6mqw/image/upload', {
+                method: 'POST',
+                body: formData,
+            });
 
-        // Check for fetch failure or invalid response
-        if (!cloudinaryResponse.ok) {
-            console.error("Cloudinary upload failed:", cloudinaryResponse.statusText);
-            return NextResponse.json({ message: "Cloudinary Server Error" }, { status: 500 });
-        }
+            // Check for fetch failure or invalid response
+            if (!cloudinaryResponse.ok) {
+                console.error("Cloudinary upload failed:", cloudinaryResponse.statusText);
+                return NextResponse.json({ message: "Cloudinary Server Error" }, { status: 500 });
+            }
 
-        const data = await cloudinaryResponse.json();
-        const imageUrl = data.secure_url;
+            const data = await cloudinaryResponse.json();
+            imageUrl = data.secure_url;
 
-        if (!imageUrl) {
-            return NextResponse.json({ message: "Cloudinary Server Error: No URL returned" }, { status: 500 });
+            if (!imageUrl) {
+                return NextResponse.json({ message: "Cloudinary Server Error: No URL returned" }, { status: 500 });
+            }
         }
 
         await dbConnect()

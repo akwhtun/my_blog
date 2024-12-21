@@ -1,12 +1,10 @@
-# Romantic Blog App 💖
+# Romantic Blog App 
 
 A romantic blog app built with **Next.js**, **MongoDB** and **Tailwind CSS**. This app is used to express heartfelt stories, emotions, and experiences in a series of blog articles.
 
 ## Features ✨
 
 - 📱  Responsive layout optimized for mobile users.
-- ✍️ **Blog Categories**: Organize blog articles into multiple categories.
-- 🖌 **Beautiful Typography**: Clean and cool Burmese font styles for blog content and titles.
 - 🌈 **Violet Color Theme**: Custom violet-based theme to convey a romantic vibe.
 - 📚 **Paginated Blog Parts**: Split long stories into parts for a better reading experience.
 

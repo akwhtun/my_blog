@@ -4,11 +4,11 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 const AboutPage = () => {
-    const router = useRouter();
+    // const router = useRouter();
 
-    const goAdmin = () => {
-        router.push("/admin/login");
-    };
+    // const goAdmin = () => {
+    //     router.push("/admin/login");
+    // };
 
     return (
         <div className="bg-violet-100 min-h-screen flex justify-center">
@@ -16,24 +16,20 @@ const AboutPage = () => {
                 <h2 className="text-4xl font-bold text-violet-700 text-center">My Story</h2>
 
                 <p className="mt-6 text-lg text-gray-700 leading-relaxed">
-                    Welcome to my blog! <br /> A few months ago, I encountered someone
-                    who captivated my heart. Her kindness, beauty, and passion inspired me
-                    to share my feelings through this blog. My hope is to express my
-                    experiences and emotions, to create a connection with her.
+                    Welcome to my blog! <br />A few months ago, I encountered someone who captivated my heart. Her kindness, beauty, and passion inspired me to share my feelings through this blog. Although I once hoped to create a connection with her, life took a different path, and we drifted apart.
                 </p>
 
                 <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-                    On this blog, I hope she'll discover heartfelt stories, reflections on
-                    my experiences, and insights into navigating love and relationships.
+                    Through this blog, I still share heartfelt stories, reflections on my experiences, and insights into navigating love and relationships—not just for her, but for anyone who may find meaning in them.
                 </p>
 
                 <p className="mt-6 text-2xl text-center italic text-gray-800">
-                    I want to spend every heartbeat of my life loving her.
+                    While she may no longer be a part of my life, the memories and lessons remain, and I carry them forward with gratitude and a heart open to what the future holds.
                 </p>
 
                 <p
-                    className="mt-8 text-2xl text-center text-white-600 font-semibold italic cursor-pointer hover:underline"
-                    onClick={goAdmin}
+                    className="mt-8 text-2xl text-center text-white-600 font-semibold italic "
+
                 >
                     - Griffith Uchiha -
                 </p>
@@ -43,6 +39,12 @@ const AboutPage = () => {
 
                 >
                     10/18/2024
+                </p>
+                <p
+                    className="mt-8 text-xl text-center text-violet-600 font-semibold "
+
+                >
+                    Updated On:  12/21/2024
                 </p>
             </div>
         </div>

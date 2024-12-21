@@ -154,7 +154,7 @@ export default function BlogPart({ id }) {
                                 Add Your Comment
                             </button>)}
                             <Link href={`/blogs/part/comments?partId=${blogPartId}&blogId=${blogId}`}>
-                                <button className=" bg-gray-200 border-3 px-3 rounded-md md:text-lg text-base">
+                                <button className=" bg-gray-200 border-3 px-3 ms-1 rounded-md md:text-lg text-base">
                                     {comments.length > 0
                                         ? `${comments.length} ${comments.length > 1 ? "Comments" : "Comment"}`
                                         : "No Comment Yet"}
