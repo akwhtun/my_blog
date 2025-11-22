@@ -9,9 +9,9 @@ export default function Home() {
 
 
   return (<>
-    <ShutDown />
-    {/* <Navbar />
-    <Layout /> */}
+    {/* <ShutDown /> */}
+    <Navbar />
+    <Layout />
   </>
 
   );
